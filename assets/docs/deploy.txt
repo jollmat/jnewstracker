@@ -1,0 +1,6 @@
+Deployment to Github pages
+--------------------------
+
+1. ng build --base-href="./"
+
+2. npx angular-cli-ghpages --dir=dist/browser
