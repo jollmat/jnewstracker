@@ -20,6 +20,7 @@ import { NewsMirrorEntity } from './model/entities/news-mirror.entity';
 import { NewsMuyInteresanteEntity } from './model/entities/news-muyinteresante.entity';
 import { NewsSapiensEntity } from './model/entities/news-sapiens.entity';
 import { NewsHobbyConsolasEntity } from './model/entities/news-hobbyconsolas.entity';
+import { NewsDiarioAsEntity } from './model/entities/news-diarioas.entity';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,8 @@ export class AppComponent implements OnInit {
     { id: 'mirror', name: 'Mirror', url: 'mirror.co.uk', active: false, news: [] },
     { id: 'muyinteresante', name: 'Muy interesante', url: 'muyinteresante.com/', active: false, news: [] },
     { id: 'sapiens', name: 'Sapiens', url: 'sapiens.cat', active: false, news: [] },
-    { id: 'hobbyconsolas', name: 'Hobby Consolas', url: 'hobbyconsolas.com/videojuegos/ps5', active: false, news: [] }
+    { id: 'hobbyconsolas', name: 'Hobby Consolas', url: 'hobbyconsolas.com/videojuegos/ps5', active: false, news: [] },
+    { id: 'diarioas', name: 'Diario AS', url: 'as.com', active: false, news: [] }
   ].map((_source) => {
     _source.active = false;
     return _source;
@@ -194,6 +196,13 @@ export class AppComponent implements OnInit {
         // Add new news from this source
         this.newsAll = this.newsAll.concat(sourceHobbyConsolasEntity.news).sort(() => Math.random() - 0.5);
         source.news = sourceHobbyConsolasEntity.news;
+        break;
+      case 'diarioas': 
+        const sourceDiarioAsEntity: NewsDiarioAsEntity = new NewsDiarioAsEntity(source, this.newstrackerService);
+        sourceDiarioAsEntity.loadNews(rootNode);
+        // Add new news from this source
+        this.newsAll = this.newsAll.concat(sourceDiarioAsEntity.news).sort(() => Math.random() - 0.5);
+        source.news = sourceDiarioAsEntity.news;
         break;
     }
     this.doSearch();
