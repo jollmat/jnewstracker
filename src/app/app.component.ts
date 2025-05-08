@@ -216,6 +216,13 @@ export class AppComponent implements OnInit {
     });
   }
 
+  getNewsBgImageStyle(newsItem: NewsItemInterface): string {
+    if (!newsItem.imageUrl || newsItem.imageUrl.trim().length===0) {
+      return '';
+    }
+    return `background-image: url(\'${newsItem.imageUrl}\'); height: 300px; background-size: cover;`;
+  }
+
   ngOnInit(): void {
 
     this.sources.filter((_source) => _source.active).forEach((_source) => {
