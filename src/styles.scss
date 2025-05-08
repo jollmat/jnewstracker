@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "bootstrap/scss/bootstrap";
+
+@import "@ng-select/ng-select/themes/material.theme.css";
+
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+body {
+    font-size: 13px;
+    background: rgb(41, 42, 45);
+    color: #fff;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.highlight {
+    background-color: gold;
+    color: #333;
+}
+
+.card {
+    background-color: rgb(31, 31, 3);
+    color: #fff;
+}
+
+.w-20 { width:20%; }
+.w-25 { width:25%; }
+.w-50 { width:50%; }
+.w-75 { width:75%; }
+.w-80 { width:80%; }
