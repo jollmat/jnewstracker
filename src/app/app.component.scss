@@ -55,7 +55,12 @@
 
     .title {
         font-size: 14px;
-        a { color:#fff; }
+        &.mobile {
+            font-size: 16px;
+        }
+        a { 
+            color:#fff;
+        }
     }
 
     .content {

@@ -156,7 +156,7 @@
       </ng-container>
       
       <div class="d-flex flex-column p-2" [ngClass]="{'mobile-content': isMobile && newsItem.imageUrl && newsItem.imageUrl.length>0}">
-        <div *ngIf="newsItem.title && newsItem.title.length>0" class="title px-3">
+        <div *ngIf="newsItem.title && newsItem.title.length>0" class="title px-3" [ngClass]="{'mobile': isMobile}">
           <span *ngIf="!(newsItem.url && newsItem.url.length>0)" [innerHTML]="newsItem.title | highlight:searchText"></span>
           <a *ngIf="newsItem.url && newsItem.url.length>0" href="{{newsItem.url}}" target="_blank" [innerHTML]="newsItem.title | highlight:searchText"></a>
         </div>
