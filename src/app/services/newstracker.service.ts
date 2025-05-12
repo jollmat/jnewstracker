@@ -5,10 +5,14 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../src/environments/environment';
 import { Node } from '../model/interfaces/node.interface';
 
+import { NewsSourceInterface } from '../model/interfaces/news-source.interface';
+
 @Injectable({
   providedIn: 'root'
 })
 export class NewstrackerService {
+
+  APP_STORED_NEWS_SOURCES = 'APP_STORED_NEWS_SOURCES';
 
   constructor(
     private readonly http: HttpClient
@@ -61,5 +65,43 @@ export class NewstrackerService {
       }
     }
     return results;
+  }
+
+  saveSources(sources: NewsSourceInterface[]): void {
+    localStorage.setItem(this.APP_STORED_NEWS_SOURCES, JSON.stringify(sources));
+  }
+
+  getSources(): NewsSourceInterface[] {
+
+    const defaultSources: NewsSourceInterface[] = [
+      { id: 'efe', name: 'Agencia EFE', url: 'efe.com/espana/', active: false, news: [] },
+      { id: 'elpais', name: 'El Pais', url: 'elpais.com', active: false, news: [] },
+      { id: 'eixdiari', name: 'Eix Diari', url: 'eixdiari.cat', active: false, news: [] },
+      { id: 'acn', name: 'ACN', url: 'acn.cat', active: false, news: [] },
+      { id: 'mundodeportivo', name: 'Mundo Deportivo', url: 'mundodeportivo.com', active: false, news: [] },
+      { id: 'ecodesitges', name: 'L\'Eco de Sitges', url: 'lecodesitges.cat/sitges-hora-a-hora/', active: false, news: [] },
+      { id: 'mirror', name: 'Mirror', url: 'mirror.co.uk', active: false, news: [] },
+      { id: 'muyinteresante', name: 'Muy interesante', url: 'muyinteresante.com/', active: false, news: [] },
+      { id: 'sapiens', name: 'Sapiens', url: 'sapiens.cat', active: false, news: [] },
+      { id: 'hobbyconsolas', name: 'Hobby Consolas', url: 'hobbyconsolas.com/videojuegos/ps5', active: false, news: [] },
+      { id: 'diarioas', name: 'Diario AS', url: 'as.com', active: false, news: [] },
+      { id: 'francefootball', name: 'France Football', url: 'francefootball.fr', active: false, news: [] },
+      { id: 'elsotanoperdido', name: 'El Sótano Perdido', url: 'elsotanoperdido.com/noticias/Tracks/ps5', active: false, news: [] }
+  ];
+
+    const storedSourcesStr: string | null = localStorage.getItem(this.APP_STORED_NEWS_SOURCES);
+
+    if(storedSourcesStr && storedSourcesStr!=null) {
+      let storedSources: NewsSourceInterface[] = JSON.parse(storedSourcesStr) as NewsSourceInterface[];
+
+      const newSources: NewsSourceInterface[] = defaultSources.filter(
+        defaultSource => !storedSources.some(storedSource => storedSource.id === defaultSource.id)
+      );
+      return storedSources.concat(newSources);
+    } else {
+      this.saveSources(defaultSources);
+    }
+    
+    return defaultSources;
   }
 }

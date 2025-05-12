@@ -21,6 +21,8 @@ import { NewsMuyInteresanteEntity } from './model/entities/news-muyinteresante.e
 import { NewsSapiensEntity } from './model/entities/news-sapiens.entity';
 import { NewsHobbyConsolasEntity } from './model/entities/news-hobbyconsolas.entity';
 import { NewsDiarioAsEntity } from './model/entities/news-diarioas.entity';
+import { NewsFranceFootballEntity } from './model/entities/news-francefootball.entity';
+import { NewsElSotanoPerdidoEntity } from './model/entities/news-elsotanoperdido.entity';
 
 @Component({
   selector: 'app-root',
@@ -37,24 +39,7 @@ export class AppComponent implements OnInit {
   isTablet!: boolean;
   isDesktop!: boolean;
 
-  sources: NewsSourceInterface[] = [
-    { id: 'efe', name: 'Agencia EFE', url: 'efe.com/espana/', active: false, news: [] },
-    { id: 'elpais', name: 'El Pais', url: 'elpais.com', active: false, news: [] },
-    { id: 'eixdiari', name: 'Eix Diari', url: 'eixdiari.cat', active: false, news: [] },
-    { id: 'acn', name: 'ACN', url: 'acn.cat', active: false, news: [] },
-    { id: 'mundodeportivo', name: 'Mundo Deportivo', url: 'mundodeportivo.com', active: false, news: [] },
-    { id: 'ecodesitges', name: 'L\'Eco de Sitges', url: 'lecodesitges.cat/sitges-hora-a-hora/', active: false, news: [] },
-    { id: 'mirror', name: 'Mirror', url: 'mirror.co.uk', active: false, news: [] },
-    { id: 'muyinteresante', name: 'Muy interesante', url: 'muyinteresante.com/', active: false, news: [] },
-    { id: 'sapiens', name: 'Sapiens', url: 'sapiens.cat', active: false, news: [] },
-    { id: 'hobbyconsolas', name: 'Hobby Consolas', url: 'hobbyconsolas.com/videojuegos/ps5', active: false, news: [] },
-    { id: 'diarioas', name: 'Diario AS', url: 'as.com', active: false, news: [] }
-  ].map((_source) => {
-    _source.active = false;
-    return _source;
-  }).sort((a, b) => {
-    return a.name>b.name ? 1 : -1;
-  });
+  sources: NewsSourceInterface[] = [];
 
   newsAll: NewsItemInterface[] = [];
   news: NewsItemInterface[] = [];
@@ -110,6 +95,7 @@ export class AppComponent implements OnInit {
   }
 
   removeSourceNews(source: NewsSourceInterface) {
+    this.saveSources();
     this.newsAll = this.news.filter((_newsItem) => {
       return _newsItem.source.id!==source.id;
     });
@@ -204,11 +190,30 @@ export class AppComponent implements OnInit {
         this.newsAll = this.newsAll.concat(sourceDiarioAsEntity.news).sort(() => Math.random() - 0.5);
         source.news = sourceDiarioAsEntity.news;
         break;
+      case 'francefootball': 
+        const sourceFranceFootballEntity: NewsFranceFootballEntity = new NewsFranceFootballEntity(source, this.newstrackerService);
+        sourceFranceFootballEntity.loadNews(rootNode);
+        // Add new news from this source
+        this.newsAll = this.newsAll.concat(sourceFranceFootballEntity.news).sort(() => Math.random() - 0.5);
+        source.news = sourceFranceFootballEntity.news;
+        break;
+      case 'elsotanoperdido': 
+        const sourceElSotanoPerdidoEntity: NewsElSotanoPerdidoEntity = new NewsElSotanoPerdidoEntity(source, this.newstrackerService);
+        sourceElSotanoPerdidoEntity.loadNews(rootNode);
+        // Add new news from this source
+        this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
+        source.news = sourceElSotanoPerdidoEntity.news;
+        break;
     }
     this.doSearch();
   }
 
+  saveSources() {
+    this.newstrackerService.saveSources(this.sources);
+  }
+
   loadSourceNews(source: NewsSourceInterface) {
+    this.saveSources();
     source.error = false;
     source.loaded = false;
     this.newstrackerService.scrapUrl(source.url).subscribe({
@@ -234,6 +239,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // Load sources
+    this.sources = this.newstrackerService.getSources().sort((a, b) => {
+      return a.name>b.name ? 1 : -1;
+    }).map((_source) => {
+      _source.error = false;
+      _source.loaded = false;
+      _source.news = [];
+      return _source;
+    });
+
+    console.log('sources', this.sources);
+
+
+    // Load sources news
     this.sources.filter((_source) => _source.active).forEach((_source) => {
       this.loadSourceNews(_source);
     });

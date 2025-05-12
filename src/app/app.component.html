@@ -25,7 +25,7 @@
     <!-- End SOURCES -->
 
     <!-- NEWS -->
-    <div class="w-75 d-flex justify-content-start flex-column flex-grow-1 py-3 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
+    <div class="w-75 d-flex justify-content-start flex-column flex-grow-1 py-3 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-3': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
       <ng-container *ngIf="news && news.length>0">
         <ng-container *ngFor="let newsItem of news">
           <ng-container [ngTemplateOutlet]="newsItemTemplate" [ngTemplateOutletContext]="{newsItem}"></ng-container>
@@ -44,7 +44,7 @@
 
   <ng-container *ngIf="isMobile">
 
-    <div class="w-100 d-flex justify-content-start flex-column flex-grow-1 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
+    <div class="w-100 d-flex justify-content-start flex-column flex-grow-1 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-5': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
       
       <div class="w-100 d-flex justify-content-between pt-3 pb-2 mobile-config">
         <div class="d-flex flex-column">
@@ -155,7 +155,7 @@
         </div>
       </ng-container>
       
-      <div class="d-flex flex-column p-2" [ngClass]="{'mobile-content': isMobile}">
+      <div class="d-flex flex-column p-2" [ngClass]="{'mobile-content': isMobile, 'justify-content-end': isMobile}">
         <div *ngIf="newsItem.title && newsItem.title.length>0" class="title px-3" [ngClass]="{'mobile': isMobile}">
           <span *ngIf="!(newsItem.url && newsItem.url.length>0)" [innerHTML]="newsItem.title | highlight:searchText"></span>
           <a *ngIf="newsItem.url && newsItem.url.length>0" href="{{newsItem.url}}" target="_blank" [innerHTML]="newsItem.title | highlight:searchText"></a>

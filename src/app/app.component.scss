@@ -76,9 +76,10 @@
 
 .mobile-content {
     width: 100%;
-    padding: 40px 5px !important;
+    padding: 40px 5px 15px 5px !important;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.5);
+    min-height: 250px;
 }
 
 input {
