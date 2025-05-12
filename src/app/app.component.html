@@ -19,7 +19,7 @@
       <div class="mb-4 d-flex flex-column">
         <input class="form-control input-no-border" placeholder="Search text" #searchTextInputRef (input)="onSearchTextChange(searchTextInputRef.value)" />
       </div>
-      <div class="mb-2">Sources:</div>
+      <div class="mb-2 sources-title">Sources:</div>
       <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
     </div>
     <!-- End SOURCES -->
@@ -46,13 +46,13 @@
 
     <div class="w-100 d-flex justify-content-start flex-column flex-grow-1 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-5': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
       
-      <div class="w-100 d-flex justify-content-between pt-3 pb-2 mobile-config">
+      <div class="w-100 d-flex justify-content-between align-items-start pt-3 pb-2 mobile-config">
         <div class="d-flex flex-column">
-          <h3>Newstracker</h3>
-          <div class="badge-number ps-1">{{activeSources}} / {{sources.length}} sources selected</div>
+          <h3 class="title" [ngClass]="{'mobile': isMobile}">Newstracker</h3>
+          <div class="badge-number ps-1" [ngClass]="{'mobile': isMobile}">{{activeSources}} / {{sources.length}} sources selected</div>
         </div>
         <button class="btn btn-sm" (click)="showSources=!showSources">
-          <i class="fas fa-sliders"></i>
+          <i class="fas fa-sliders" [ngClass]="{'mobile': isMobile}"></i>
         </button>
       </div>
 
@@ -61,7 +61,7 @@
           <div class="mb-4 d-flex flex-column">
             <input class="form-control input-no-border" placeholder="Search text" #searchTextInputRef (input)="onSearchTextChange(searchTextInputRef.value)" />
           </div>
-          <div class="mb-2">Sources:</div>
+          <div class="mb-2 sources-title" [ngClass]="{'mobile': isMobile}">Sources:</div>
           <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
         </div>
       </ng-container>
@@ -87,7 +87,7 @@
 
 <!-- SOURCE Template -->
 <ng-template let-sourceItem="sourceItem" #sourceTemplate>
-  <div class="w-100 ps-2" [ngClass]="{'py-1': isMobile, 'py-2': !isMobile}">
+  <div class="w-100 ps-2 source-check" [ngClass]="{'mobile': isMobile, 'py-1': isMobile, 'py-2': !isMobile}">
 
       <input type="checkbox" class="form-check-input" [(ngModel)]="sourceItem.active" class="me-2" (ngModelChange)="checkLoadSource(sourceItem)">
       
@@ -170,7 +170,7 @@
               <small *ngIf="!timeInformed(newsItem.date)">{{newsItem.date | date:'dd.MM.yyyy'}}</small>
             </div>
           </ng-container>
-          <a class="source" href="https://{{newsItem.source.url}}" target="_blank">{{newsItem.source.name}}</a>
+          <a class="source" [ngClass]="{'mobile': isMobile}" href="https://{{newsItem.source.url}}" target="_blank">{{newsItem.source.name}}</a>
         </div>
       </div>
     </div>

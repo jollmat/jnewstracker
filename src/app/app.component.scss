@@ -20,6 +20,10 @@
     bottom: 0px;
     right: 0px;
     padding: 10px;
+
+    &.mobile {
+        font-size: 13px !important;
+    }
 }
 
 .source-container {
@@ -108,6 +112,10 @@ input {
 .fa-sliders {
     color: #fff;
     font-size: 20px;
+
+    &.mobile {
+        font-size: 25px;
+    }
 }
 
 .mobile-sources, .mobile-config {
@@ -121,4 +129,28 @@ input {
 .badge-number {
     color: cadetblue;
     font-size: 11px;
+
+    &.badge-number {
+        font-size: 14px;
+    }
+}
+
+h3 {
+    &.title {
+        &.mobile {
+            font-size: 34px;
+        }
+    }
+}
+
+.sources-title {
+    &.mobile {
+        font-size: 16px;
+    }
+}
+
+.source-check {
+    &.mobile {
+        font-size: 16px;
+    }
 }
