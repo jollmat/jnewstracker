@@ -117,94 +117,108 @@ export class AppComponent implements OnInit {
         const sourceEfeEntity: NewsEfeEntity = new NewsEfeEntity(source, this.newstrackerService);
         sourceEfeEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceEfeEntity.news).sort(() => Math.random() - 0.5);;
+        // this.newsAll = this.newsAll.concat(sourceEfeEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceEfeEntity.news);
         source.news = sourceEfeEntity.news;
         break;
       case 'elpais': 
         const sourceElPaisEntity: NewsElPaisEntity = new NewsElPaisEntity(source, this.newstrackerService);
         sourceElPaisEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceElPaisEntity.news).sort(() => Math.random() - 0.5);;
+        // this.newsAll = this.newsAll.concat(sourceElPaisEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceElPaisEntity.news);
         source.news = sourceElPaisEntity.news;
         break;
       case 'eixdiari': 
         const sourceEixDiariEntity: NewsEixDiariEntity = new NewsEixDiariEntity(source, this.newstrackerService);
         sourceEixDiariEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceEixDiariEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceEixDiariEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceEixDiariEntity.news);
         source.news = sourceEixDiariEntity.news;
         break;
       case 'acn': 
         const sourceAcnEntity: NewsAcnEntity = new NewsAcnEntity(source, this.newstrackerService);
         sourceAcnEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceAcnEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceAcnEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceAcnEntity.news);
         source.news = sourceAcnEntity.news;
         break;
       case 'mundodeportivo': 
         const sourceMendoDeportivoEntity: NewsMundoDeportivoEntity = new NewsMundoDeportivoEntity(source, this.newstrackerService);
         sourceMendoDeportivoEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceMendoDeportivoEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceMendoDeportivoEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceMendoDeportivoEntity.news);
         source.news = sourceMendoDeportivoEntity.news;
         break;
       case 'ecodesitges': 
         const sourceEcoDeSitgesEntity: NewsEcoDeSitgesEntity = new NewsEcoDeSitgesEntity(source, this.newstrackerService);
         sourceEcoDeSitgesEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceEcoDeSitgesEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceEcoDeSitgesEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceEcoDeSitgesEntity.news);
         source.news = sourceEcoDeSitgesEntity.news;
         break;
       case 'mirror': 
         const sourceMirrorEntity: NewsMirrorEntity = new NewsMirrorEntity(source, this.newstrackerService);
         sourceMirrorEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceMirrorEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceMirrorEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceMirrorEntity.news);
         source.news = sourceMirrorEntity.news;
         break;
       case 'muyinteresante': 
         const sourceMuyInteresanteEntity: NewsMuyInteresanteEntity = new NewsMuyInteresanteEntity(source, this.newstrackerService);
         sourceMuyInteresanteEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceMuyInteresanteEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceMuyInteresanteEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceMuyInteresanteEntity.news);
         source.news = sourceMuyInteresanteEntity.news;
         break;
       case 'sapiens': 
         const sourceSapiensEntity: NewsSapiensEntity = new NewsSapiensEntity(source, this.newstrackerService);
         sourceSapiensEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceSapiensEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceSapiensEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceSapiensEntity.news);
         source.news = sourceSapiensEntity.news;
         break;
       case 'hobbyconsolas': 
         const sourceHobbyConsolasEntity: NewsHobbyConsolasEntity = new NewsHobbyConsolasEntity(source, this.newstrackerService);
         sourceHobbyConsolasEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceHobbyConsolasEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceHobbyConsolasEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceHobbyConsolasEntity.news);
         source.news = sourceHobbyConsolasEntity.news;
         break;
       case 'diarioas': 
         const sourceDiarioAsEntity: NewsDiarioAsEntity = new NewsDiarioAsEntity(source, this.newstrackerService);
         sourceDiarioAsEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceDiarioAsEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceDiarioAsEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceDiarioAsEntity.news);
         source.news = sourceDiarioAsEntity.news;
         break;
       case 'francefootball': 
         const sourceFranceFootballEntity: NewsFranceFootballEntity = new NewsFranceFootballEntity(source, this.newstrackerService);
         sourceFranceFootballEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceFranceFootballEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceFranceFootballEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceFranceFootballEntity.news);
         source.news = sourceFranceFootballEntity.news;
         break;
       case 'elsotanoperdido': 
         const sourceElSotanoPerdidoEntity: NewsElSotanoPerdidoEntity = new NewsElSotanoPerdidoEntity(source, this.newstrackerService);
         sourceElSotanoPerdidoEntity.loadNews(rootNode);
         // Add new news from this source
-        this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
+        // this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news);
         source.news = sourceElSotanoPerdidoEntity.news;
         break;
     }
+    this.showSources = false;
     this.doSearch();
   }
 
