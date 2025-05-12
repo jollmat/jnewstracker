@@ -86,7 +86,8 @@ export class NewstrackerService {
       { id: 'hobbyconsolas', name: 'Hobby Consolas', url: 'hobbyconsolas.com/videojuegos/ps5', active: false, news: [] },
       { id: 'diarioas', name: 'Diario AS', url: 'as.com', active: false, news: [] },
       { id: 'francefootball', name: 'France Football', url: 'francefootball.fr', active: false, news: [] },
-      { id: 'elsotanoperdido', name: 'El Sótano Perdido', url: 'elsotanoperdido.com/noticias/Tracks/ps5', active: false, news: [] }
+      { id: 'elsotanoperdido', name: 'El Sótano Perdido', url: 'elsotanoperdido.com/noticias/Tracks/ps5', active: false, news: [] },
+      { id: 'computerhoy', name: 'Computer Hoy', url: 'computerhoy.20minutos.es/', active: false, news: [] }
   ];
 
     const storedSourcesStr: string | null = localStorage.getItem(this.APP_STORED_NEWS_SOURCES);
