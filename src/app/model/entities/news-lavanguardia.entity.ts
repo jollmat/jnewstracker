@@ -26,7 +26,7 @@ export class NewsLaVanguardiaEntity implements NewsSourceInterface {
 
     loadNews(node: Node): void {
         this.news = [];
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article').slice(0, this.maxItems);
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
         
         newsNodes.forEach((_newsNode) => {
             let title = '';
@@ -81,6 +81,8 @@ export class NewsLaVanguardiaEntity implements NewsSourceInterface {
             
         });
 
-        console.log(this.news);
+        this.news = this.news.filter((item, index, self) =>
+            index === self.findIndex(t => t.title === item.title)
+          ).slice(0, this.maxItems);
     }
 }

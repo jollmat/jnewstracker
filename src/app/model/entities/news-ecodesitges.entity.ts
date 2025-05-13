@@ -28,7 +28,7 @@ export class NewsEcoDeSitgesEntity implements NewsSourceInterface {
     loadNews(node: Node): void {
 
         this.news = [];
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'td-cpt-hora_a_hora').slice(0, this.maxItems);
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'td-cpt-hora_a_hora');
 
         newsNodes.forEach((_newsNode) => {
             let title = '';
@@ -67,6 +67,9 @@ export class NewsEcoDeSitgesEntity implements NewsSourceInterface {
             }
             
         });
-        console.log(this.news);
+
+        this.news = this.news.filter((item, index, self) =>
+            index === self.findIndex(t => t.title === item.title)
+          ).slice(0, this.maxItems);
     }
 }

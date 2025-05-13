@@ -26,7 +26,7 @@ export class NewsGuerinSportivoEntity implements NewsSourceInterface {
 
     loadNews(node: Node): void {
         this.news = [];
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article').slice(0, this.maxItems);
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
         newsNodes.forEach((_newsNode, idx) => {
             let title = '';
             let newsDate: Date = new Date();
@@ -42,20 +42,31 @@ export class NewsGuerinSportivoEntity implements NewsSourceInterface {
                 const linkNodes: Node[] = this.newstrackerService.findNodesWithTag(titleNode, 'a');
                 if (linkNodes.length>0) {
                     const linkNode: Node = linkNodes[0];
-                    console.log(linkNode);
                     if (linkNode.children) {
                         const titleIndex = linkNode.children.findIndex((_child) => typeof _child==='string');
                         title = linkNode.children[titleIndex] as string;
                         url = `https://www.${this.url}${this.newstrackerService.getNodeAttr(linkNode, 'href')}`;
-
-                        // Image
-                        const imageNodes: Node[] = this.newstrackerService.findNodesWithTag(linkNode, 'img');
-                        if (imageNodes.length>0) {
-                            console.log(imageNodes);
-                            imageUrl = this.newstrackerService.getNodeAttr(imageNodes[0], 'src');
+                    }
+                    // Image
+                    const imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
+                    if (imageNodes.length>0) {
+                        const imageNode: Node = imageNodes[0];
+                        if (this.newstrackerService.nodeHasAttribute(imageNode, 'data-src')) {
+                            imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'data-src');
+                        } else {
+                            const allLinks: Node[] = this.newstrackerService.findNodesWithTag(node, 'a');
+                            allLinks.forEach((_link) => {
+                                const linkUrl: string = this.newstrackerService.getNodeAttr(_link, 'href');
+                                const linkImages: Node[] = this.newstrackerService.findNodesWithTag(_link, 'img');
+                                if (linkImages.length>0) {
+                                    const linkImage: Node = linkImages[0];
+                                    if (this.newstrackerService.getNodeAttr(linkImage, 'alt')===title) {
+                                        imageUrl = this.newstrackerService.getNodeAttr(linkImage, 'src')
+                                    }
+                                }
+                            });
                         }
                     }
-                    
                 }
             }
             
@@ -72,5 +83,9 @@ export class NewsGuerinSportivoEntity implements NewsSourceInterface {
             }
             
         });
+
+        this.news = this.news.filter((item, index, self) =>
+            index === self.findIndex(t => t.title === item.title)
+          ).slice(0, this.maxItems);
     }
 }

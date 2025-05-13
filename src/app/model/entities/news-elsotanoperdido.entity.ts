@@ -26,7 +26,7 @@ export class NewsElSotanoPerdidoEntity implements NewsSourceInterface {
 
     loadNews(node: Node): void {
         this.news = [];
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'itemContainer').slice(0, this.maxItems);
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'itemContainer');
 
         newsNodes.forEach((_newsNode) => {
             let title = '';
@@ -71,5 +71,9 @@ export class NewsElSotanoPerdidoEntity implements NewsSourceInterface {
                 });
             //}
         });
+
+        this.news = this.news.filter((item, index, self) =>
+            index === self.findIndex(t => t.title === item.title)
+          ).slice(0, this.maxItems);
     }
 }

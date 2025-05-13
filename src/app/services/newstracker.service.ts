@@ -23,6 +23,9 @@ export class NewstrackerService {
     return this.http.get<{html: Node}>(`${environment.scrapApi}/scrape/${safeUrl}`);
   }
 
+  nodeHasAttribute(node: Node, attrName: string) {
+    return node.attrs && node.attrs[attrName]!==undefined;
+  }
   nodeHasClass(node: Node, className: string) {
     return this.getNodeClass(node).indexOf(className)>=0;
   }
@@ -37,6 +40,20 @@ export class NewstrackerService {
       return node.attrs[attr];
     }
     return '';
+  }
+
+  findNodesWithAttributeValue(node: Node, attributeName: string, attributeValue: string, results: Node[] = []): Node[] {
+    if (node.attrs && node.attrs[attributeName] && node.attrs[attributeName]===attributeValue) {
+      results.push(node);
+    }
+    if (Array.isArray(node.children)) {
+      for (const child of node.children) {
+        if (typeof child === 'object') {
+          this.findNodesWithAttributeValue(child, attributeName, attributeValue, results);
+        }
+      }
+    }
+    return results;
   }
 
   findNodesWithTag(node: Node, tagValue: string, results: Node[] = []): Node[] {
@@ -90,7 +107,8 @@ export class NewstrackerService {
       { id: 'computerhoy', name: 'Computer Hoy', url: 'computerhoy.20minutos.es/', active: false, news: [] },
       { id: 'abc', name: 'ABC', url: 'abc.es', active: false, news: [] },
       { id: 'lavanguardia', name: 'La Vanguardia', url: 'lavanguardia.com', active: false, news: [] },
-      { id: 'guerinsportivo', name: 'Guerin Sportivo', url: 'guerinsportivo.it', active: false, news: [] }
+      { id: 'guerinsportivo', name: 'Guerin Sportivo', url: 'guerinsportivo.it', active: false, news: [] },
+      { id: 'thetimes', name: 'The Times', url: 'thetimes.com', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau'];

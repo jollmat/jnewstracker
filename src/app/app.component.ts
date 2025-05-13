@@ -27,6 +27,7 @@ import { NewsComputerHoyEntity } from './model/entities/news-computerhoy.entity'
 import { NewsAbcEntity } from './model/entities/news-abc.entity';
 import { NewsLaVanguardiaEntity } from './model/entities/news-lavanguardia.entity';
 import { NewsGuerinSportivoEntity } from './model/entities/news-guerinsportivo.entity';
+import { NewsTheTimesEntity } from './model/entities/news-thetimes.entity';
 
 @Component({
   selector: 'app-root',
@@ -252,6 +253,14 @@ export class AppComponent implements OnInit {
         // this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
         this.newsAll = this.newsAll.concat(sourceGuerinSportivoEntity.news);
         source.news = sourceGuerinSportivoEntity.news;
+        break;
+      case 'thetimes': 
+        const sourceTheTimesEntity: NewsTheTimesEntity = new NewsTheTimesEntity(source, this.newstrackerService);
+        sourceTheTimesEntity.loadNews(rootNode);
+        // Add new news from this source
+        // this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceTheTimesEntity.news);
+        source.news = sourceTheTimesEntity.news;
         break;
     }
     this.showSources = false;
