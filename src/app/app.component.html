@@ -20,7 +20,9 @@
         <input class="form-control input-no-border" placeholder="Search text" #searchTextInputRef (input)="onSearchTextChange(searchTextInputRef.value)" />
       </div>
       <div class="mb-2 sources-title">Sources:</div>
-      <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
+      <div class="source-check-container">
+        <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
+      </div>
     </div>
     <!-- End SOURCES -->
 
@@ -62,7 +64,9 @@
             <input class="form-control input-no-border" placeholder="Search text" #searchTextInputRef (input)="onSearchTextChange(searchTextInputRef.value)" />
           </div>
           <div class="mb-2 sources-title" [ngClass]="{'mobile': isMobile}">Sources:</div>
-          <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
+          <div class="source-check-container" [ngClass]="{'mobile': isMobile}">
+            <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
+          </div>
         </div>
       </ng-container>
       

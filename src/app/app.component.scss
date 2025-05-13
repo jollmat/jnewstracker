@@ -154,3 +154,10 @@ h3 {
         font-size: 16px;
     }
 }
+
+.source-check-container {
+    &.mobile {
+        overflow: auto;
+        max-height: calc(350px);
+    }
+}
