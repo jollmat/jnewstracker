@@ -79,11 +79,15 @@ export class AppComponent implements OnInit {
   }
 
   doSearch() {
-    console.log('doSearch()', this.searchText);
     this.news = this.newsAll.filter((_newsItem) => {
       return this.searchText.length===0 || 
       _newsItem.title.toLowerCase().indexOf(this.searchText.toLowerCase())>=0 || 
       _newsItem.content.toLowerCase().indexOf(this.searchText.toLowerCase())>=0;
+    }).map((_newsItem) => {
+      if (!_newsItem.imageUrl || _newsItem.imageUrl.trim().length===0) {
+        _newsItem.imageUrl = 'assets/img/no-image.png';
+      }
+      return _newsItem;
     });
   }
 
@@ -292,6 +296,9 @@ export class AppComponent implements OnInit {
   getNewsBgImageStyle(newsItem: NewsItemInterface): string {
     if (!newsItem.imageUrl || newsItem.imageUrl.trim().length===0) {
       return '';
+    }
+    if (this.isMobile && newsItem.imageUrl.endsWith('no-image.png')) {
+      return `background-image: url(\'${newsItem.imageUrl}\');background-repeat: no-repeat;background-size: 135px;background-position: top;background-position-y: 10px;`;
     }
     return `background-image: url(\'${newsItem.imageUrl}\'); height: 300px; background-size: cover;`;
   }

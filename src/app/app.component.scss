@@ -35,6 +35,7 @@
 
 .news-container {
     overflow: auto;
+    margin-bottom: 30px;
 }
 .news-grid-item {
     color: #fff;
@@ -156,8 +157,10 @@ h3 {
 }
 
 .source-check-container {
+    max-height: calc(100vh - 350px);
+    overflow: auto;
+    margin-bottom: 20px;
     &.mobile {
-        overflow: auto;
         max-height: calc(350px);
     }
 }
