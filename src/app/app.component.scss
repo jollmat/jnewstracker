@@ -157,10 +157,26 @@ h3 {
 }
 
 .source-check-container {
+    background-color: lightslategrey;
     max-height: calc(100vh - 350px);
     overflow: auto;
     margin-bottom: 20px;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left:10px;
     &.mobile {
         max-height: calc(350px);
+    }
+}
+
+.form-check-input:checked {
+    background-color: lightseagreen;
+    border-color: lightseagreen;
+}
+
+.text-success {
+    .fa-check {
+        color: aquamarine;
     }
 }

@@ -91,9 +91,18 @@
 
 <!-- SOURCE Template -->
 <ng-template let-sourceItem="sourceItem" #sourceTemplate>
-  <div class="w-100 ps-2 source-check" [ngClass]="{'mobile': isMobile, 'py-1': isMobile, 'py-2': !isMobile}">
+  <div class="w-100 d-flex ps-2 source-check" [ngClass]="{'mobile': isMobile, 'py-1': isMobile, 'py-2': !isMobile}">
 
-      <input type="checkbox" class="form-check-input" [(ngModel)]="sourceItem.active" class="me-2" (ngModelChange)="checkLoadSource(sourceItem)">
+      <!-- <input type="checkbox" class="form-check-input" [(ngModel)]="sourceItem.active" class="me-2" (ngModelChange)="checkLoadSource(sourceItem)"> -->
+
+      <div class="form-check form-switch d-flex justify-content-start align-items-start">
+        <input  class="form-check-input me-1 cursor-pointer"
+                type="checkbox"
+                role="switch"
+                id="updatingPathScan2"
+                [(ngModel)]="sourceItem.active"
+                (ngModelChange)="checkLoadSource(sourceItem)">
+      </div>
       
       <ng-container *ngIf="sourceItem.active">
         <ng-container *ngIf="sourceItem.loaded && !sourceItem.error">
@@ -103,8 +112,10 @@
         </ng-container>
         <ng-container *ngIf="!sourceItem.loaded && !sourceItem.error">
           {{sourceItem.name}}
-          <small class="ms-2">...</small>
-          <i class="fas fa-rotate fa-spin ms-2"></i>
+          <div style="display: block;">
+            <small class="ms-2">...</small>
+            <i class="fas fa-rotate fa-spin ms-2"></i>
+          </div>
         </ng-container>
         <ng-container *ngIf="sourceItem.loaded && sourceItem.error">
           {{sourceItem.name}} 

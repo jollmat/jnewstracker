@@ -267,7 +267,9 @@ export class AppComponent implements OnInit {
         source.news = sourceTheTimesEntity.news;
         break;
     }
-    this.showSources = false;
+    if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {
+      this.showSources = false;
+    }
     this.doSearch();
   }
 

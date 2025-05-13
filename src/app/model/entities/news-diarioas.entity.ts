@@ -38,14 +38,12 @@ export class NewsDiarioAsEntity implements NewsSourceInterface {
             
             // Title
             const titleNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 's__tl');
-            console.log(titleNodes);
             if (titleNodes.length>0) {
                 let titleNode: Node = titleNodes[0];
                 if (titleNode.children && titleNode.children.length>0) {
                     titleNode = titleNode.children[0] as Node;
                     title = titleNode.children ? titleNode.children[0] as string : '';
                     url = this.newstrackerService.getNodeAttr(titleNode, 'href');
-                    console.log(titleNode, title);
                 }
             }
             // Date
