@@ -24,6 +24,9 @@ import { NewsDiarioAsEntity } from './model/entities/news-diarioas.entity';
 import { NewsFranceFootballEntity } from './model/entities/news-francefootball.entity';
 import { NewsElSotanoPerdidoEntity } from './model/entities/news-elsotanoperdido.entity';
 import { NewsComputerHoyEntity } from './model/entities/news-computerhoy.entity';
+import { NewsAbcEntity } from './model/entities/news-abc.entity';
+import { NewsLaVanguardiaEntity } from './model/entities/news-lavanguardia.entity';
+import { NewsGuerinSportivoEntity } from './model/entities/news-guerinsportivo.entity';
 
 @Component({
   selector: 'app-root',
@@ -225,6 +228,30 @@ export class AppComponent implements OnInit {
         // this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
         this.newsAll = this.newsAll.concat(sourceComputerHoyEntity.news);
         source.news = sourceComputerHoyEntity.news;
+        break;
+      case 'abc': 
+        const sourceAbcEntity: NewsAbcEntity = new NewsAbcEntity(source, this.newstrackerService);
+        sourceAbcEntity.loadNews(rootNode);
+        // Add new news from this source
+        // this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceAbcEntity.news);
+        source.news = sourceAbcEntity.news;
+        break;
+      case 'lavanguardia': 
+        const sourceLaVanguardiaEntity: NewsLaVanguardiaEntity = new NewsLaVanguardiaEntity(source, this.newstrackerService);
+        sourceLaVanguardiaEntity.loadNews(rootNode);
+        // Add new news from this source
+        // this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceLaVanguardiaEntity.news);
+        source.news = sourceLaVanguardiaEntity.news;
+        break;
+      case 'guerinsportivo': 
+        const sourceGuerinSportivoEntity: NewsGuerinSportivoEntity = new NewsGuerinSportivoEntity(source, this.newstrackerService);
+        sourceGuerinSportivoEntity.loadNews(rootNode);
+        // Add new news from this source
+        // this.newsAll = this.newsAll.concat(sourceElSotanoPerdidoEntity.news).sort(() => Math.random() - 0.5);
+        this.newsAll = this.newsAll.concat(sourceGuerinSportivoEntity.news);
+        source.news = sourceGuerinSportivoEntity.news;
         break;
     }
     this.showSources = false;

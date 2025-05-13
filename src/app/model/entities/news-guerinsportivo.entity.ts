@@ -3,7 +3,7 @@ import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
 
-export class NewsElPaisEntity implements NewsSourceInterface {
+export class NewsGuerinSportivoEntity implements NewsSourceInterface {
     id: string;
     name: string;
     url: string;
@@ -12,7 +12,7 @@ export class NewsElPaisEntity implements NewsSourceInterface {
     loaded?: boolean | undefined;
     news: NewsItemInterface[];
 
-    maxItems = 15;
+    maxItems = 9;
 
     constructor({id, name, url, active, error, loaded, news}: Partial<NewsSourceInterface>, private newstrackerService: NewstrackerService) {
         this.id = id || '';
@@ -35,35 +35,32 @@ export class NewsElPaisEntity implements NewsSourceInterface {
             let imageUrl = '';
             let url = '';
             // Title
-            const titleLinks: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'h2');
+            const titleLinks: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'h3');
 
             if (titleLinks.length===1) {
                 const titleNode: Node = titleLinks[0];
                 const linkNodes: Node[] = this.newstrackerService.findNodesWithTag(titleNode, 'a');
                 if (linkNodes.length>0) {
                     const linkNode: Node = linkNodes[0];
+                    console.log(linkNode);
                     if (linkNode.children) {
                         const titleIndex = linkNode.children.findIndex((_child) => typeof _child==='string');
                         title = linkNode.children[titleIndex] as string;
-                        url = this.newstrackerService.getNodeAttr(linkNode, 'href');
+                        url = `https://www.${this.url}${this.newstrackerService.getNodeAttr(linkNode, 'href')}`;
+
+                        // Image
+                        const imageNodes: Node[] = this.newstrackerService.findNodesWithTag(linkNode, 'img');
+                        if (imageNodes.length>0) {
+                            console.log(imageNodes);
+                            imageUrl = this.newstrackerService.getNodeAttr(imageNodes[0], 'src');
+                        }
                     }
                     
                 }
             }
-            // Content
-            const summaryNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'p');
-            if (summaryNodes.length===1 && summaryNodes[0].children && summaryNodes[0].children.length>0) {
-                if (summaryNodes[0].children) {
-                    content = summaryNodes[0].children[0].toString() + '...';
-                }
-            }
-            // Image
-            const imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
-            if (imageNodes.length>0) {
-                imageUrl = this.newstrackerService.getNodeAttr(imageNodes[0], 'src');
-            }
+            
 
-            if (title.length>0 && (content.length>0 || imageUrl.length>0)) {
+            if (title.length>0) {
                 this.news.push({
                     title,
                     content,

@@ -87,13 +87,24 @@ export class NewstrackerService {
       { id: 'diarioas', name: 'Diario AS', url: 'as.com', active: false, news: [] },
       { id: 'francefootball', name: 'France Football', url: 'francefootball.fr', active: false, news: [] },
       { id: 'elsotanoperdido', name: 'El Sótano Perdido', url: 'elsotanoperdido.com/noticias/Tracks/ps5', active: false, news: [] },
-      { id: 'computerhoy', name: 'Computer Hoy', url: 'computerhoy.20minutos.es/', active: false, news: [] }
-  ];
+      { id: 'computerhoy', name: 'Computer Hoy', url: 'computerhoy.20minutos.es/', active: false, news: [] },
+      { id: 'abc', name: 'ABC', url: 'abc.es', active: false, news: [] },
+      { id: 'lavanguardia', name: 'La Vanguardia', url: 'lavanguardia.com', active: false, news: [] },
+      { id: 'guerinsportivo', name: 'Guerin Sportivo', url: 'guerinsportivo.it', active: false, news: [] }
+    ];
+
+    const removableSources: string[] = ['canalblau'];
 
     const storedSourcesStr: string | null = localStorage.getItem(this.APP_STORED_NEWS_SOURCES);
 
     if(storedSourcesStr && storedSourcesStr!=null) {
       let storedSources: NewsSourceInterface[] = JSON.parse(storedSourcesStr) as NewsSourceInterface[];
+
+      if (removableSources.length) {
+        storedSources = storedSources.filter((_storedSource) => {
+          return !removableSources.some((_removableSourceId) => _removableSourceId===_storedSource.id);
+        });
+      }
 
       const newSources: NewsSourceInterface[] = defaultSources.filter(
         defaultSource => !storedSources.some(storedSource => storedSource.id === defaultSource.id)
