@@ -3,7 +3,7 @@
   <ng-container *ngIf="!isMobile">
 
     <!-- SOURCES -->
-    <div class="w-25 py-3 px-5 d-flex flex-column flex-grow-1 source-container" style="position: sticky; top: 0px;z-index: 1;">
+    <div class="w-30 py-3 px-5 d-flex flex-column flex-grow-1 source-container" style="position: sticky; top: 0px;z-index: 1;">
       <h3>Newstracker</h3>
       <div class="mb-4 d-flex flex-column">
           <div class="mb-1">Display mode:</div>
@@ -27,7 +27,7 @@
     <!-- End SOURCES -->
 
     <!-- NEWS -->
-    <div class="w-75 d-flex justify-content-start flex-column flex-grow-1 py-3 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-3': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
+    <div class="w-70 d-flex justify-content-start flex-column flex-grow-1 py-3 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-3': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
       <ng-container *ngIf="news && news.length>0">
         <ng-container *ngFor="let newsItem of news">
           <ng-container [ngTemplateOutlet]="newsItemTemplate" [ngTemplateOutletContext]="{newsItem}"></ng-container>
