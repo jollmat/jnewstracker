@@ -195,9 +195,21 @@ span {
             color: #ccc;
         }
         &.loaded {
-            border: 1px solid lightseagreen;
-            background-color: lightseagreen;
             color: inherit;
         }
+    }
+}
+
+.num-news {
+    sup {
+        background-color: #fff;
+        border-radius: 10px;
+        color: #333;
+        font-size: 13px;
+        text-align: center;
+        position: relative;
+        padding: 2px 4px;
+        font-weight: 600;
+        top: -1px;
     }
 }

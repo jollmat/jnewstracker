@@ -302,6 +302,26 @@ export class AppComponent implements OnInit {
     return `background-image: url(\'${newsItem.imageUrl}\'); height: 300px; background-size: cover;`;
   }
 
+  getDarkHexColor(): string {
+    const r = Math.floor(Math.random() * 128); // 0–127
+    const g = Math.floor(Math.random() * 128);
+    const b = Math.floor(Math.random() * 128);
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+  }
+
+  generateBgStyle(): string {
+    function getRandomHexColor() {
+      return '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+    }
+    function getRandomGradient() {
+      const color1 = getRandomHexColor();
+      const color2 = getRandomHexColor();
+      const angle = Math.floor(Math.random() * 360);
+      return `linear-gradient(${angle}deg, ${color1}, ${color2})`;
+    }
+    return getRandomGradient();
+  }
+
   ngOnInit(): void {
 
     // Load sources
@@ -311,6 +331,7 @@ export class AppComponent implements OnInit {
       _source.error = false;
       _source.loaded = false;
       _source.news = [];
+      _source.bgStyle = _source.bgStyle || this.generateBgStyle();
       return _source;
     });
 

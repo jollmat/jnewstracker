@@ -9,5 +9,6 @@ export interface NewsSourceInterface {
     loaded?: boolean,
     error?: boolean,
     news: NewsItemInterface[],
+    bgStyle?: string,
     loadNews?: (node: Node) => void
 }
