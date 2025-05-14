@@ -67,6 +67,7 @@
             <ng-container *ngFor="let source of sources; let i = index">
               <ng-container *ngIf="source.active">
                 <span class="badge" [ngClass]="{'loading': !source.loaded, 'loaded': source.loaded}">{{source.name}}
+                  <span class="ms-1" *ngIf="source.loaded">({{source.news.length}})</span>
                   <i *ngIf="source.loaded" class="fas fa-close cursor-pointer ms-2" (click)="source.active=false;removeSourceNews(source)"></i>
                   <i *ngIf="!source.loaded" class="fas fa-spinner fa-spin ms-2"></i>
                 </span>
