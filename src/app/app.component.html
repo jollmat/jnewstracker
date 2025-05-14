@@ -51,7 +51,9 @@
       <div class="w-100 d-flex justify-content-between align-items-start pt-3 pb-2 mobile-config px-3">
         <div class="d-flex flex-column">
           <h3 class="title" [ngClass]="{'mobile': isMobile}">Newstracker</h3>
-          <div class="badge-number ps-1" [ngClass]="{'mobile': isMobile}">{{activeSources}} / {{sources.length}} sources selected</div>
+          <ng-container *ngIf="!isMobile">
+            <div class="badge-number ps-1" [ngClass]="{'mobile': isMobile}">{{activeSources}} / {{sources.length}} sources selected</div>
+          </ng-container>
         </div>
         <button class="btn btn-sm" (click)="showSources=!showSources">
           <i class="fas fa-sliders" [ngClass]="{'mobile': isMobile}"></i>
