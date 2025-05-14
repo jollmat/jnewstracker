@@ -46,9 +46,9 @@
 
   <ng-container *ngIf="isMobile">
 
-    <div class="w-100 d-flex justify-content-start flex-column flex-grow-1 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-5': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
+    <div class="w-100 d-flex justify-content-start flex-column flex-grow-1 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-5': displayMode==='LIST', 'px-3': displayMode==='LIST' && !isMobile,'ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
       
-      <div class="w-100 d-flex justify-content-between align-items-start pt-3 pb-2 mobile-config">
+      <div class="w-100 d-flex justify-content-between align-items-start pt-3 pb-2 mobile-config px-3">
         <div class="d-flex flex-column">
           <h3 class="title" [ngClass]="{'mobile': isMobile}">Newstracker</h3>
           <div class="badge-number ps-1" [ngClass]="{'mobile': isMobile}">{{activeSources}} / {{sources.length}} sources selected</div>
@@ -162,7 +162,7 @@
 
   <ng-container *ngIf="displayMode==='LIST'">
     
-    <div class="w-100 d-flex my-1 p-0 news-list-item" [style]="(isMobile && newsItem.imageUrl && newsItem.imageUrl.length>0)?getNewsBgImageStyle(newsItem):''">
+    <div class="w-100 d-flex p-0 news-list-item" [ngClass]="{'my-1': !isMobile, 'mobile': isMobile}" [style]="(isMobile && newsItem.imageUrl && newsItem.imageUrl.length>0)?getNewsBgImageStyle(newsItem):''">
       <ng-container *ngIf="!isMobile">
         <div class="p-2 d-flex flex-column p-2 img-container">
           <img *ngIf="newsItem.imageUrl && newsItem.imageUrl.length>0" src="{{newsItem.imageUrl}}" alt="Card image cap">
