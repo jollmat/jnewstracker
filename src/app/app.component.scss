@@ -198,7 +198,7 @@ span {
         font-size: 18px;
         font-weight: 200;
         &.loading {
-            border: 1px solid #ccc;
+            border: 1px dashed #666;
             color: #ccc;
         }
         &.loaded {
@@ -206,6 +206,7 @@ span {
         }
         &.alone {
             height: 73px;
+            border-width: 0px;
         }
     }
 }
