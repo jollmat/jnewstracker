@@ -88,6 +88,11 @@ export class NewstrackerService {
     localStorage.setItem(this.APP_STORED_NEWS_SOURCES, JSON.stringify(sources));
   }
 
+  getDefaultImage(): string {
+    const randomInt = Math.floor(Math.random() * 27);
+    return `assets/img/default${randomInt}.png`;
+  }
+
   getSources(): NewsSourceInterface[] {
 
     const defaultSources: NewsSourceInterface[] = [
@@ -113,7 +118,9 @@ export class NewstrackerService {
       { id: 'xataka', name: 'Xataka', url: 'xataka.com', active: false, news: [] },
       { id: 'cuerpomente', name: 'Cuerpomente', url: 'cuerpomente.com', active: false, news: [] },
       { id: 'sabervivir', name: 'Saber Vivir', url: 'sabervivirtv.com', active: false, news: [] },
-      { id: 'nationalgeographic', name: 'National Geographic', url: 'nationalgeographic.com.es/', active: false, news: [] }
+      { id: 'nationalgeographic', name: 'National Geographic', url: 'nationalgeographic.com.es/', active: false, news: [] },
+      { id: 'revistagadget', name: 'Revista Gadget', url: 'revista-gadget.es/', active: false, news: [] },
+      { id: 'quo', name: 'Quo', url: 'quo.eldiario.es/', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus'];

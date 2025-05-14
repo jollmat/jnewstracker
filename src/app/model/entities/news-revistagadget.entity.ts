@@ -3,7 +3,7 @@ import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
 
-export class NewsNationalGeographicEntity implements NewsSourceInterface {
+export class NewsRevistaGadgetEntity implements NewsSourceInterface {
     id: string;
     name: string;
     url: string;
@@ -27,7 +27,7 @@ export class NewsNationalGeographicEntity implements NewsSourceInterface {
     loadNews(node: Node): void {
         this.news = [];
 
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'layout_post_1');
 
         newsNodes.forEach((_newsNode, idx) => {
 
@@ -38,22 +38,19 @@ export class NewsNationalGeographicEntity implements NewsSourceInterface {
             let imageUrl = '';
             let url = '';
             // Title
-            let titleLinks: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'title');
+            let titleLinks: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'h4');
             if (titleLinks.length>0) {
                 titleLinks = this.newstrackerService.findNodesWithTag(titleLinks[0], 'a');
                 if (titleLinks.length>0) {
                     const titleLink: Node = titleLinks[0];
                     title = (titleLink.children)? titleLink.children[0] as string : '';
-                    url = `https://${this.url}${this.newstrackerService.getNodeAttr(titleLink, 'href')}`;
+                    url = `${this.newstrackerService.getNodeAttr(titleLink, 'href')}`;
                 }
             }
             // Content
-            let contentNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'subtitle');
+            let contentNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'p');
             if (contentNodes.length>0) {
-                const contentNode: Node = contentNodes[0];
-                if (contentNode.children && contentNode.children.length>0) {
-                    content = contentNode.children[0] as string;
-                }
+                content = contentNodes[0].children && contentNodes[0].children.length>0? contentNodes[0].children[0] as string : '';
             }
             
             // Image
@@ -61,7 +58,7 @@ export class NewsNationalGeographicEntity implements NewsSourceInterface {
             if (imageNodes.length>0) {
                 const imageNode: Node = imageNodes[0];
                 if (this.newstrackerService.nodeHasAttribute(imageNode, 'data-src')) {
-                    imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'data-src');
+                    imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'data-src').replace('http://', 'https://');
                 }
             }
 

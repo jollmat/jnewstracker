@@ -33,6 +33,8 @@ import { NewsXatakaEntity } from './model/entities/news-xataka.entity';
 import { NewsCuerpomenteEntity } from './model/entities/news-cuerpomente.entity';
 import { NewsSaberVivirEntity } from './model/entities/news-sabervivir.entity';
 import { NewsNationalGeographicEntity } from './model/entities/news-nationalgeographic.entity';
+import { NewsRevistaGadgetEntity } from './model/entities/news-revistagadget.entity';
+import { NewsQuoEntity } from './model/entities/news-quo.entity';
 
 @Component({
   selector: 'app-root',
@@ -90,7 +92,7 @@ export class AppComponent implements OnInit {
       _newsItem.content.toLowerCase().indexOf(this.searchText.toLowerCase())>=0;
     }).map((_newsItem) => {
       if (!_newsItem.imageUrl || _newsItem.imageUrl.trim().length===0) {
-        _newsItem.imageUrl = 'assets/img/no-image.png';
+        _newsItem.imageUrl = this.newstrackerService.getDefaultImage();
       }
       return _newsItem;
     });
@@ -266,6 +268,18 @@ export class AppComponent implements OnInit {
           this.newsAll = sourceNationalGeographicEntity.news.concat(this.newsAll);
           source.news = sourceNationalGeographicEntity.news;
           break;
+        case 'revistagadget': 
+          const sourceRevistaGadgetEntity: NewsRevistaGadgetEntity = new NewsRevistaGadgetEntity(source, this.newstrackerService);
+          sourceRevistaGadgetEntity.loadNews(rootNode);
+          this.newsAll = sourceRevistaGadgetEntity.news.concat(this.newsAll);
+          source.news = sourceRevistaGadgetEntity.news;
+          break;
+        case 'quo': 
+          const sourceQuoEntity: NewsQuoEntity = new NewsQuoEntity(source, this.newstrackerService);
+          sourceQuoEntity.loadNews(rootNode);
+          this.newsAll = sourceQuoEntity.news.concat(this.newsAll);
+          source.news = sourceQuoEntity.news;
+          break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {
         this.showSources = false;
@@ -303,10 +317,11 @@ export class AppComponent implements OnInit {
     if (!newsItem.imageUrl || newsItem.imageUrl.trim().length===0) {
       return '';
     }
-    if (this.isMobile && newsItem.imageUrl.endsWith('no-image.png')) {
-      return `background-image: url(\'${newsItem.imageUrl}\');background-repeat: no-repeat;background-size: 135px;background-position: top;background-position-y: 10px;`;
-    }
     return `background-image: url(\'${newsItem.imageUrl}\'); height: 300px; background-size: cover;`;
+  }
+
+  getDefaultImage(): string {
+    return this.newstrackerService.getDefaultImage();
   }
 
   getDarkHexColor(): string {

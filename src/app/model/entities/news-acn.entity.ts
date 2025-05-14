@@ -54,24 +54,6 @@ export class NewsAcnEntity implements NewsSourceInterface {
                 title = titleLinks[0].children[0] as string;
                 url = `https://${this.url}` + this.newstrackerService.getNodeAttr(this.newstrackerService.findNodesWithTag(_newsNode, 'a')[0], 'href');
             }
-            // Image
-            const imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
-            if (imageNodes.length>0) {
-                /*
-                const imageNode: Node = imageNodes[0];
-                const encodedImageUrl: string = this.newstrackerService.getNodeAttr(imageNode, 'src');
-                const base64 = encodedImageUrl.split(',')[1]; // get only the Base64 part
-                console.log(encodedImageUrl);
-                const matchesArray: RegExpMatchArray | null = encodedImageUrl.match(/^data:(image\/[^;]+);/);
-                if (matchesArray!=null) {
-                    const mimeType = matchesArray[1];
-                    const blob = this.base64ToBlob(base64, mimeType);
-                    imageUrl = URL.createObjectURL(blob);
-                    console.log(imageUrl);
-                }
-                */
-               imageUrl = './assets/img/no-image.png';
-            }
 
             this.news.push({
                 title,

@@ -92,7 +92,7 @@
     width: 100%;
     padding: 40px 5px 15px 5px !important;
     border-radius: 0px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     min-height: 250px;
 }
 
@@ -149,6 +149,7 @@ h3 {
     &.title {
         &.mobile {
             font-size: 34px;
+            font-family: cursive;
         }
     }
 }

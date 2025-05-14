@@ -152,7 +152,7 @@
   <ng-container *ngIf="displayMode==='GRID'">
     <div class="card news-grid-item" style="width: 12rem;">
       <img *ngIf="newsItem.imageUrl && newsItem.imageUrl.length>0" class="card-img-top" src="{{newsItem.imageUrl}}" alt="">
-      <img *ngIf="!(newsItem.imageUrl && newsItem.imageUrl.length>0)" class="card-img-top" src="assets/img/no-image.png" alt="">
+      <img *ngIf="!(newsItem.imageUrl && newsItem.imageUrl.length>0)" class="card-img-top" src="{{getDefaultImage()}}" alt="">
       <div class="card-body">
         <ng-container *ngIf="newsItem.url && newsItem.url.length>0">
           <h5 class="card-title"><a href="{{newsItem.url}}" target="_blank" [innerHTML]="newsItem.title | highlight:searchText"></a></h5>
@@ -183,7 +183,7 @@
       <ng-container *ngIf="!isMobile">
         <div class="p-2 d-flex flex-column p-2 img-container">
           <img *ngIf="newsItem.imageUrl && newsItem.imageUrl.length>0" src="{{newsItem.imageUrl}}" alt="Card image cap">
-          <img *ngIf="!(newsItem.imageUrl && newsItem.imageUrl.length>0)" src="assets/img/no-image.png" alt="No image">
+          <img *ngIf="!(newsItem.imageUrl && newsItem.imageUrl.length>0)" src="{{getDefaultImage()}}" alt="No image">
         </div>
       </ng-container>
       
