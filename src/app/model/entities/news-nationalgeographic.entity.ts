@@ -3,7 +3,7 @@ import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
 
-export class NewsCuerpomenteEntity implements NewsSourceInterface {
+export class NewsNationalGeographicEntity implements NewsSourceInterface {
     id: string;
     name: string;
     url: string;
@@ -47,15 +47,23 @@ export class NewsCuerpomenteEntity implements NewsSourceInterface {
                     url = `https://${this.url}${this.newstrackerService.getNodeAttr(titleLink, 'href')}`;
                 }
             }
+            // Content
+            let contentNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'subtitle');
+            if (contentNodes.length>0) {
+                const contentNode: Node = contentNodes[0];
+                console.log({contentNode});
+                if (contentNode.children && contentNode.children.length>0) {
+                    content = contentNode.children[0] as string;
+                }
+                console.log(content);
+            }
             
             // Image
             let imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
             if (imageNodes.length>0) {
                 const imageNode: Node = imageNodes[0];
-                console.log(imageNode);
                 if (this.newstrackerService.nodeHasAttribute(imageNode, 'data-src')) {
                     imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'data-src');
-                    console.log(imageUrl);
                 }
             }
 

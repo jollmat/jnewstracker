@@ -32,6 +32,7 @@ import { NewsVeinteMinutosEntity } from './model/entities/news-veinteminutos';
 import { NewsXatakaEntity } from './model/entities/news-xataka.entity';
 import { NewsCuerpomenteEntity } from './model/entities/news-cuerpomente.entity';
 import { NewsSaberVivirEntity } from './model/entities/news-sabervivir.entity';
+import { NewsNationalGeographicEntity } from './model/entities/news-nationalgeographic.entity';
 
 @Component({
   selector: 'app-root',
@@ -258,6 +259,12 @@ export class AppComponent implements OnInit {
           sourceSaberVivirEntity.loadNews(rootNode);
           this.newsAll = sourceSaberVivirEntity.news.concat(this.newsAll);
           source.news = sourceSaberVivirEntity.news;
+          break;
+        case 'nationalgeographic': 
+          const sourceNationalGeographicEntity: NewsNationalGeographicEntity = new NewsNationalGeographicEntity(source, this.newstrackerService);
+          sourceNationalGeographicEntity.loadNews(rootNode);
+          this.newsAll = sourceNationalGeographicEntity.news.concat(this.newsAll);
+          source.news = sourceNationalGeographicEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {

@@ -75,6 +75,10 @@
 
     .content {
         font-size: 11px;
+
+        &.mobile {
+            font-size: 13px;
+        }
     }
 
     .source {
@@ -212,4 +216,18 @@ span {
         font-weight: 600;
         top: -1px;
     }
+}
+
+.ellipsis-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.ellipsis-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }

@@ -112,7 +112,8 @@ export class NewstrackerService {
       { id: 'veinteminutos', name: '20 minutos', url: '20minutos.es', active: false, news: [] },
       { id: 'xataka', name: 'Xataka', url: 'xataka.com', active: false, news: [] },
       { id: 'cuerpomente', name: 'Cuerpomente', url: 'cuerpomente.com', active: false, news: [] },
-      { id: 'sabervivir', name: 'Saber Vivir', url: 'sabervivirtv.com', active: false, news: [] }
+      { id: 'sabervivir', name: 'Saber Vivir', url: 'sabervivirtv.com', active: false, news: [] },
+      { id: 'nationalgeographic', name: 'National Geographic', url: 'nationalgeographic.com.es/', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus'];

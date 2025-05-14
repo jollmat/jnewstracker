@@ -190,10 +190,13 @@
       <div class="d-flex flex-column p-2" [ngClass]="{'mobile-content': isMobile, 'justify-content-end': isMobile}">
         <div *ngIf="newsItem.title && newsItem.title.length>0" class="title px-3" [ngClass]="{'mobile': isMobile}">
           <span *ngIf="!(newsItem.url && newsItem.url.length>0)" [innerHTML]="newsItem.title | highlight:searchText"></span>
-          <a *ngIf="newsItem.url && newsItem.url.length>0" href="{{newsItem.url}}" target="_blank" [innerHTML]="newsItem.title | highlight:searchText"></a>
+          <a *ngIf="newsItem.url && newsItem.url.length>0" title="newsItem.title" href="{{newsItem.url}}" target="_blank" class="ellipsis-2" [innerHTML]="newsItem.title | highlight:searchText"></a>
         </div>
         <ng-container *ngIf="!isMobile">
           <div *ngIf="newsItem.content && newsItem.content.length>0" class="content py-2 px-3"><p [innerHTML]="newsItem.content | highlight:searchText"></p></div>
+        </ng-container>
+        <ng-container *ngIf="isMobile">
+          <div *ngIf="newsItem.content && newsItem.content.length>0" class="content mobile py-2 px-3"><p [innerHTML]="newsItem.content" class="ellipsis-3"></p></div>
         </ng-container>
         <div class="footer d-flex flex-column px-3 mt-2">
           <ng-container *ngIf="newsItem.date">
