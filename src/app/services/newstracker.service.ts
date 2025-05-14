@@ -109,7 +109,10 @@ export class NewstrackerService {
       { id: 'lavanguardia', name: 'La Vanguardia', url: 'lavanguardia.com', active: false, news: [] },
       { id: 'guerinsportivo', name: 'Guerin Sportivo', url: 'guerinsportivo.it', active: false, news: [] },
       { id: 'thetimes', name: 'The Times', url: 'thetimes.com', active: false, news: [] },
-      { id: 'veinteminutos', name: '20 minutos', url: '20minutos.es', active: false, news: [] }
+      { id: 'veinteminutos', name: '20 minutos', url: '20minutos.es', active: false, news: [] },
+      { id: 'xataka', name: 'Xataka', url: 'xataka.com', active: false, news: [] },
+      { id: 'cuerpomente', name: 'Cuerpomente', url: 'cuerpomente.com', active: false, news: [] },
+      { id: 'sabervivir', name: 'Saber Vivir', url: 'sabervivirtv.com', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus'];

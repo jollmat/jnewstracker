@@ -58,13 +58,29 @@
         </button>
       </div>
 
+      <ng-container *ngIf="activeSources>0">
+        <div class="w-100 d-flex flex-column mobile-sources p-3">
+
+          <div class="d-flex flex-wrap gap-2">
+            <ng-container *ngFor="let source of sources; let i = index">
+              <ng-container *ngIf="source.active">
+                <span class="badge" [ngClass]="{'loading': !source.loaded, 'loaded': source.loaded}">{{source.name}}
+                  <i *ngIf="source.loaded" class="fas fa-close cursor-pointer ms-2" (click)="source.active=false;removeSourceNews(source)"></i>
+                  <i *ngIf="!source.loaded" class="fas fa-spinner fa-spin ms-2"></i>
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+
       <ng-container *ngIf="showSources">
         <div class="w-100 d-flex flex-column mobile-sources pb-2 pt-3">
-          <div class="mb-4 d-flex flex-column">
+          <div class="mb-4 d-flex flex-column" [ngClass]="{'px-3': isMobile}">
             <input class="form-control input-no-border" placeholder="Search text" #searchTextInputRef (input)="onSearchTextChange(searchTextInputRef.value)" />
           </div>
-          <div class="mb-2 sources-title" [ngClass]="{'mobile': isMobile}">Sources:</div>
-          <div class="source-check-container" [ngClass]="{'mobile': isMobile}">
+          <div class="mb-2 sources-title" [ngClass]="{'mobile': isMobile, 'px-3': isMobile}">Sources:</div>
+          <div class="source-check-container" [ngClass]="{'mobile': isMobile, 'px-3': isMobile}">
             <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
           </div>
         </div>
@@ -92,8 +108,6 @@
 <!-- SOURCE Template -->
 <ng-template let-sourceItem="sourceItem" #sourceTemplate>
   <div class="w-100 d-flex ps-2 source-check" [ngClass]="{'mobile': isMobile, 'py-1': isMobile, 'py-2': !isMobile}">
-
-      <!-- <input type="checkbox" class="form-check-input" [(ngModel)]="sourceItem.active" class="me-2" (ngModelChange)="checkLoadSource(sourceItem)"> -->
 
       <div class="form-check form-switch d-flex justify-content-start align-items-start">
         <input  class="form-check-input me-1 cursor-pointer"
