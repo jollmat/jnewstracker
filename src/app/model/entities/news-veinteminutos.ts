@@ -3,7 +3,7 @@ import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
 
-export class NewsTheTimesEntity implements NewsSourceInterface {
+export class NewsVeinteMinutosEntity implements NewsSourceInterface {
     id: string;
     name: string;
     url: string;
@@ -12,7 +12,7 @@ export class NewsTheTimesEntity implements NewsSourceInterface {
     loaded?: boolean | undefined;
     news: NewsItemInterface[];
 
-    maxItems = 15;
+    maxItems = 12;
 
     constructor({id, name, url, active, error, loaded, news}: Partial<NewsSourceInterface>, private newstrackerService: NewstrackerService) {
         this.id = id || '';
@@ -26,11 +26,11 @@ export class NewsTheTimesEntity implements NewsSourceInterface {
 
     loadNews(node: Node): void {
         this.news = [];
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithAttributeValue(node, 'data-testid', 'horizontal-article')
-        .concat(this.newstrackerService.findNodesWithClassAttr(node, 'article-headline'))
-        .concat(this.newstrackerService.findNodesWithClassAttr(node, 'article-container'));
-        
+
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
+
         newsNodes.forEach((_newsNode, idx) => {
+
             let title = '';
             let newsDate: Date = new Date();
             let content = '';
@@ -38,33 +38,29 @@ export class NewsTheTimesEntity implements NewsSourceInterface {
             let imageUrl = '';
             let url = '';
             // Title
-            let titleLinks: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'article-headline');
-            if (titleLinks.length===1) {
-                titleLinks = this.newstrackerService.findNodesWithTag(titleLinks[0], 'span');
-                if (titleLinks.length===1 && titleLinks[0].children) {
-                    title = titleLinks[0].children[0] as string;
-                    titleLinks = this.newstrackerService.findNodesWithTag(_newsNode, 'a');
-                    if (titleLinks.length>0) {
-                        url = `https://${this.url}${this.newstrackerService.getNodeAttr(titleLinks[0], 'href')}`;
+            let titleLinks: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'header');
+            if (titleLinks.length>0) {
+                titleLinks = this.newstrackerService.findNodesWithTag(titleLinks[0], 'a');
+                if (titleLinks.length>0) {
+                    const titleLink: Node = titleLinks[0];
+                    if (titleLink.children && titleLink.children.length>0) {
+                        titleLink.children.forEach((_titlePart) => {
+                            if(typeof _titlePart==='string') {
+                                title += ((title.length>0?' ':'')+_titlePart);
+                            } else if (_titlePart.children && _titlePart.children.length>0) {
+                                title += ((title.length>0?' ':'') + (_titlePart.children[0] as string));
+                            }
+                        });
+                        url = this.newstrackerService.getNodeAttr(titleLink, 'href');
                     }
                 }
             }
             
             // Image
-            let imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'picture');
+            let imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
             if (imageNodes.length>0) {
-                imageNodes = this.newstrackerService.findNodesWithTag(imageNodes[0], 'source');
-                if (imageNodes.length>0) {
-                    const imageNode: Node = imageNodes[0];
-                    if (this.newstrackerService.nodeHasAttribute(imageNode, 'srcset')) {
-                        imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'srcset');
-                    }
-                } 
-            } else {
-                imageNodes = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
-                if (imageNodes.length>0) {
-                    console.log(imageNodes);
-                    const imageNode: Node = imageNodes[0];
+                const imageNode: Node = imageNodes[0];
+                if (this.newstrackerService.nodeHasAttribute(imageNode, 'src')) {
                     imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'src');
                 }
             }
