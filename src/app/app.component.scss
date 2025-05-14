@@ -177,6 +177,8 @@ h3 {
     padding-left:10px;
     &.mobile {
         max-height: calc(350px);
+        border-radius: 0px;
+        margin-bottom: 0px;
     }
 }
 
@@ -201,6 +203,9 @@ span {
         }
         &.loaded {
             color: inherit;
+        }
+        &.alone {
+            height: 73px;
         }
     }
 }
@@ -231,4 +236,8 @@ span {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
+}
+
+.close-sources {
+    font-size: 25px;
 }

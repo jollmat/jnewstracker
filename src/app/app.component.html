@@ -1,5 +1,6 @@
 <div class="w-100 h-100 min-vh-100" style="display: flex;position: absolute;">
 
+  <!-- Desktop layout -->
   <ng-container *ngIf="!isMobile">
 
     <!-- SOURCES -->
@@ -43,33 +44,43 @@
     <!-- End NEWS -->
 
   </ng-container>
+  <!-- End Desktop layout -->
 
+  <!-- Mobile layout -->
   <ng-container *ngIf="isMobile">
 
     <div class="w-100 d-flex justify-content-start flex-column flex-grow-1 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-5': displayMode==='LIST', 'px-3': displayMode==='LIST' && !isMobile,'ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
       
       <div class="w-100 d-flex justify-content-between align-items-start pt-3 pb-2 mobile-config px-3">
         <div class="d-flex flex-column">
-          <h3 class="title" [ngClass]="{'mobile': isMobile}">Newstracker</h3>
-          <ng-container *ngIf="!isMobile">
-            <div class="badge-number ps-1" [ngClass]="{'mobile': isMobile}">{{activeSources}} / {{sources.length}} sources selected</div>
-          </ng-container>
+          <h3 class="title mobile">Newstracker</h3>
         </div>
         <button class="btn btn-sm" (click)="showSources=!showSources">
-          <i class="fas fa-sliders" [ngClass]="{'mobile': isMobile}"></i>
+          <i class="fas fa-sliders mobile"></i>
         </button>
       </div>
 
       <ng-container *ngIf="activeSources>0">
-        <div class="w-100 d-flex flex-column mobile-sources p-3">
-
-          <div class="d-flex flex-wrap gap-2 my-1">
+        <div class="w-100 d-flex flex-column mobile-sources" [ngClass]="{'p-3': activeSources>1}">
+          <div class="d-flex flex-wrap" [ngClass]="{'gap-2': activeSources>1, 'my-1': activeSources>1}">
             <ng-container *ngFor="let source of sources; let i = index">
               <ng-container *ngIf="source.active">
-                <span class="badge" [ngClass]="{'loading': !source.loaded, 'loaded': source.loaded}" style="background:{{(source.loaded)?source.bgStyle : 'transparent'}}">{{source.name}}
-                  <span class="num-news" *ngIf="source.loaded"><sup>{{source.news.length}}</sup></span>
-                  <i *ngIf="source.loaded" class="fas fa-close cursor-pointer ms-2" (click)="source.active=false;removeSourceNews(source)"></i>
-                  <i *ngIf="!source.loaded" class="fas fa-spinner fa-spin ms-2"></i>
+                <span class="badge d-flex justify-content-between align-items-center" 
+                  [ngClass]="{
+                    'loading': !source.loaded, 
+                    'loaded': source.loaded, 
+                    'w-100': activeSources===1,
+                    'br-0': activeSources===1,
+                    'alone': activeSources===1,
+                    'px-4': activeSources===1
+                  }" 
+                  style="background:{{(source.loaded)?source.bgStyle : 'transparent'}}">
+                    <span>
+                      {{source.name}}
+                      <span class="num-news ms-2" *ngIf="source.loaded"><sup>{{source.news.length}}</sup></span>
+                      <i *ngIf="!source.loaded" class="fas fa-spinner fa-spin ms-2"></i>
+                    </span>
+                    <i *ngIf="source.loaded" class="fas fa-close cursor-pointer close-sources ms-2" (click)="source.active=false;removeSourceNews(source)"></i>
                 </span>
               </ng-container>
             </ng-container>
@@ -78,12 +89,12 @@
       </ng-container>
 
       <ng-container *ngIf="showSources">
-        <div class="w-100 d-flex flex-column mobile-sources pb-2 pt-3">
-          <div class="mb-4 d-flex flex-column" [ngClass]="{'px-3': isMobile}">
-            <input class="form-control input-no-border" placeholder="Search text" #searchTextInputRef (input)="onSearchTextChange(searchTextInputRef.value)" />
+        <div class="w-100 d-flex flex-column mobile-sources pt-3">
+          <div class="mb-3 sources-title mobile px-3 d-flex justify-content-between align-items-center">
+            <span>Sources</span>
+            <i class="fas fa-close close-sources cursor-pointer" (click)="showSources=false;"></i>
           </div>
-          <div class="mb-2 sources-title" [ngClass]="{'mobile': isMobile, 'px-3': isMobile}">Sources:</div>
-          <div class="source-check-container" [ngClass]="{'mobile': isMobile, 'px-3': isMobile}">
+          <div class="source-check-container mobile px-2">
             <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
           </div>
         </div>
@@ -103,6 +114,7 @@
     </div>
 
   </ng-container>
+  <!-- End Mobile layout -->
 
   
 
@@ -124,7 +136,9 @@
       <ng-container *ngIf="sourceItem.active">
         <ng-container *ngIf="sourceItem.loaded && !sourceItem.error">
         <span class="cursor-pointer" (click)="sourceItem.active=false;removeSourceNews(sourceItem)">{{sourceItem.name}} ({{sourceItem.news.length}})</span>
-        <small class="text-success ms-2"><i class="fas fa-check"></i></small>
+          <small class="text-success ms-2">
+            <i class="fas fa-check"></i>
+          </small>
           <i class="fas fa-rotate cursor-pointer ms-2" (click)="loadSourceNews(sourceItem)"></i>
         </ng-container>
         <ng-container *ngIf="!sourceItem.loaded && !sourceItem.error">
@@ -142,7 +156,7 @@
       </ng-container>
 
       <ng-container *ngIf="!sourceItem.active">
-        <span class="cursor-pointer" (click)="sourceItem.active=true;loadSourceNews(sourceItem);">{{sourceItem.name}}</span>
+        <span class="cursor-pointer" (click)="sourceItem.active=true;loadSourceNews(sourceItem);showSources=false;">{{sourceItem.name}}</span>
       </ng-container>
   </div>
 </ng-template>
