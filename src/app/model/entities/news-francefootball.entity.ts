@@ -38,7 +38,6 @@ export class NewsFranceFootballEntity implements NewsSourceInterface {
             // Title
             const titleNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'ColeaderWidget__title');
             if (titleNodes && titleNodes.length>0) {
-                console.log({titleNodes});
                 const titleNode: Node = titleNodes[0];
                 title = titleNode.children && titleNode.children.length>0 ? titleNode.children[0] as string : '';
             }

@@ -52,10 +52,8 @@ export class NewsCuerpomenteEntity implements NewsSourceInterface {
             let imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
             if (imageNodes.length>0) {
                 const imageNode: Node = imageNodes[0];
-                console.log(imageNode);
                 if (this.newstrackerService.nodeHasAttribute(imageNode, 'data-src')) {
                     imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'data-src');
-                    console.log(imageUrl);
                 }
             }
 

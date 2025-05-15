@@ -35,7 +35,9 @@
         </ng-container>
       </ng-container>
       <ng-container *ngIf="activeSources===0">
-        <div class="text-center py-5 mt-5 w-100">Please, select a source.</div>
+        <div class="text-center py-5 mt-5 w-100">
+          <div class="text-center py-5 mt-5 w-100">Please, select a source.</div>
+        </div>
       </ng-container>
       <ng-container *ngIf="activeSources>0 && news && news.length===0">
         <div class="text-center py-5 mt-5 w-100">Loading news from {{activeSources}} sources...</div>
@@ -112,8 +114,10 @@
           <ng-container [ngTemplateOutlet]="newsItemTemplate" [ngTemplateOutletContext]="{newsItem}"></ng-container>
         </ng-container>
       </ng-container>
-      <ng-container *ngIf="activeSources===0">
-        <div class="text-center py-5 mt-5 w-100">Please, select a source.</div>
+      <ng-container *ngIf="activeSources===0 && !showSources">
+        <div class="text-center py-5 mt-5 w-100">Please, select a source. 
+          <br /><button class="btn btn-sm btn-secondary mt-3" (click)="showSources=true;">Source selection</button>
+        </div>
       </ng-container>
       <ng-container *ngIf="activeSources>0 && news && news.length===0">
         <div class="text-center py-5 mt-5 w-100">Loading news from {{activeSources}} sources...</div>

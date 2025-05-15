@@ -63,7 +63,6 @@ export class NewsEspacioMisterioEntity implements NewsSourceInterface {
                         imageUrl = this.newstrackerService.getNodeAttr((imageNodes[0] as Node), 'data-src');
                     }
                 }
-                console.log(imageNodes);
             }
 
             if (title.length>0) {

@@ -45,7 +45,6 @@ export class NewsSaberVivirEntity implements NewsSourceInterface {
                     const titleLink: Node = titleLinks[0];
                     title = (titleLink.children)? titleLink.children[0] as string : '';
                     url = `https://${this.url}${this.newstrackerService.getNodeAttr(titleLink, 'href')}`;
-                    console.log(url);
                 }
             }
             
