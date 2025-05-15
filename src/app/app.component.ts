@@ -38,6 +38,8 @@ import { NewsQuoEntity } from './model/entities/news-quo.entity';
 import { NewsEspacioMisterioEntity } from './model/entities/news-espaciomisterio.entity';
 import { NewsAngularUniversityEntity } from './model/entities/news-angularuniversity.entity';
 import { NewsLaCiutatEntity } from './model/entities/news-laciutat.entity';
+import { NewsMarcaEntity } from './model/entities/news-marca.entity';
+import { NewsSportEntity } from './model/entities/news-sport.entity';
 
 @Component({
   selector: 'app-root',
@@ -300,6 +302,18 @@ export class AppComponent implements OnInit {
           sourceLaCiutatEntity.loadNews(rootNode);
           this.newsAll = sourceLaCiutatEntity.news.concat(this.newsAll);
           source.news = sourceLaCiutatEntity.news;
+          break;
+        case 'marca': 
+          const sourceMarcaEntity: NewsMarcaEntity = new NewsMarcaEntity(source, this.newstrackerService);
+          sourceMarcaEntity.loadNews(rootNode);
+          this.newsAll = sourceMarcaEntity.news.concat(this.newsAll);
+          source.news = sourceMarcaEntity.news;
+          break;
+        case 'sport': 
+          const sourceSportEntity: NewsSportEntity = new NewsSportEntity(source, this.newstrackerService);
+          sourceSportEntity.loadNews(rootNode);
+          this.newsAll = sourceSportEntity.news.concat(this.newsAll);
+          source.news = sourceSportEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {

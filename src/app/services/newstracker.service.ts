@@ -123,7 +123,9 @@ export class NewstrackerService {
       { id: 'quo', name: 'Quo', url: 'quo.eldiario.es/', active: false, news: [] },
       { id: 'espaciomisterio', name: 'Espacio Misterio', url: 'espaciomisterio.com/', active: false, news: [] },
       { id: 'angularuniversity', name: 'Angular University', url: 'blog.angular-university.io/', active: false, news: [] },
-      { id: 'laciutat', name: 'La Ciutat (Garraf)', url: 'laciutat.cat/es/laciutatdelgarraf-es', active: false, news: [] }
+      { id: 'laciutat', name: 'La Ciutat (Garraf)', url: 'laciutat.cat/es/laciutatdelgarraf-es', active: false, news: [] },
+      { id: 'marca', name: 'Marca', url: 'marca.com', active: false, news: [] },
+      { id: 'sport', name: 'Sport', url: 'sport.es/es/', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus'];

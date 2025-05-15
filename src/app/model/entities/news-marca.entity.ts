@@ -3,7 +3,7 @@ import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
 
-export class NewsDiarioAsEntity implements NewsSourceInterface {
+export class NewsMarcaEntity implements NewsSourceInterface {
     id: string;
     name: string;
     url: string;
@@ -27,8 +27,9 @@ export class NewsDiarioAsEntity implements NewsSourceInterface {
     loadNews(node: Node): void {
         this.news = [];
         const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
-
+        
         newsNodes.forEach((_newsNode) => {
+
             let title = '';
             let newsDate: Date | undefined = undefined;
             let content = '';
@@ -37,13 +38,14 @@ export class NewsDiarioAsEntity implements NewsSourceInterface {
             let url = '';
             
             // Title
-            const titleNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 's__tl');
-            if (titleNodes.length>0) {
-                let titleNode: Node = titleNodes[0];
-                if (titleNode.children && titleNode.children.length>0) {
-                    titleNode = titleNode.children[0] as Node;
+            const linkNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'a');
+            if (linkNodes.length>0) {
+                let linkNode: Node = linkNodes[0];
+                const titleNodes: Node[] = this.newstrackerService.findNodesWithTag(linkNode, 'h2');
+                if (titleNodes.length>0) {
+                    const titleNode: Node = titleNodes[0];
                     title = titleNode.children ? titleNode.children[0] as string : '';
-                    url = this.newstrackerService.getNodeAttr(titleNode, 'href');
+                    url = this.newstrackerService.getNodeAttr(linkNode, 'href');
                 }
             }
             // Date
