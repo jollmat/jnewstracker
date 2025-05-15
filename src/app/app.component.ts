@@ -40,6 +40,7 @@ import { NewsAngularUniversityEntity } from './model/entities/news-angularuniver
 import { NewsLaCiutatEntity } from './model/entities/news-laciutat.entity';
 import { NewsMarcaEntity } from './model/entities/news-marca.entity';
 import { NewsSportEntity } from './model/entities/news-sport.entity';
+import { NewsFourFourTwoEntity } from './model/entities/news-fourfourtwo.entity';
 
 @Component({
   selector: 'app-root',
@@ -314,6 +315,24 @@ export class AppComponent implements OnInit {
           sourceSportEntity.loadNews(rootNode);
           this.newsAll = sourceSportEntity.news.concat(this.newsAll);
           source.news = sourceSportEntity.news;
+          break;
+        case 'fourfourtwo': 
+          const sourceFourFourTwoEntity: NewsFourFourTwoEntity = new NewsFourFourTwoEntity(source, this.newstrackerService);
+          sourceFourFourTwoEntity.loadNews(rootNode);
+          this.newsAll = sourceFourFourTwoEntity.news.concat(this.newsAll);
+          source.news = sourceFourFourTwoEntity.news;
+          break;
+        case 'fourfourtwo-premier': 
+          const sourceFourFourTwoPremierEntity: NewsFourFourTwoEntity = new NewsFourFourTwoEntity(source, this.newstrackerService);
+          sourceFourFourTwoPremierEntity.loadNews(rootNode);
+          this.newsAll = sourceFourFourTwoPremierEntity.news.concat(this.newsAll);
+          source.news = sourceFourFourTwoPremierEntity.news;
+          break;
+        case 'fourfourtwo-laliga': 
+          const sourceFourFourTwoLaLigaEntity: NewsFourFourTwoEntity = new NewsFourFourTwoEntity(source, this.newstrackerService);
+          sourceFourFourTwoLaLigaEntity.loadNews(rootNode);
+          this.newsAll = sourceFourFourTwoLaLigaEntity.news.concat(this.newsAll);
+          source.news = sourceFourFourTwoLaLigaEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {

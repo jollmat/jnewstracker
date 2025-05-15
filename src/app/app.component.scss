@@ -230,14 +230,14 @@ span {
     }
 }
 
-.ellipsis-2 {
+.ellipsis2, .ellipsis-2 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
 
-.ellipsis-3 {
+.ellipsis3, .ellipsis-3 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;

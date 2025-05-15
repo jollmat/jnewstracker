@@ -217,12 +217,12 @@
       
       <div class="d-flex flex-column p-2" [ngClass]="{'mobile-content': isMobile, 'justify-content-end': isMobile}">
         <div *ngIf="newsItem.title && newsItem.title.length>0" class="title px-3" [ngClass]="{'mobile': isMobile}">
-          <span *ngIf="!(newsItem.url && newsItem.url.length>0)" [innerHTML]="newsItem.title | highlight:searchText"></span>
+          <span *ngIf="!(newsItem.url && newsItem.url.length>0)" [ngClass]="{'ellipsis-2': newsItem.content.length>0, 'ellipsis-3': newsItem.content.length===0}" [innerHTML]="newsItem.title | highlight:searchText"></span>
           <a *ngIf="newsItem.url && newsItem.url.length>0" 
-            title="newsItem.title" 
-            href="{{newsItem.url}}" 
+            title="{{newsItem.title}}"
             target="_blank"
-            [ngClass]="{'ellipsis-2': newsItem.content.length>0, 'ellipsis-3': newsItem.content.length===0}"
+            href="{{newsItem.url}}" 
+            [ngClass]="{'ellipsis2': newsItem.content && newsItem.content.length>0, 'ellipsis3': newsItem.content && newsItem.content.length===0}"
             [innerHTML]="newsItem.title | highlight:searchText">
           </a>
         </div>
