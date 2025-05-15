@@ -3,7 +3,7 @@ import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
 
-export class NewsFourFourTwoEntity implements NewsSourceInterface {
+export class NewsTransferMarktEntity implements NewsSourceInterface {
     id: string;
     name: string;
     url: string;
@@ -26,7 +26,7 @@ export class NewsFourFourTwoEntity implements NewsSourceInterface {
 
     loadNews(node: Node): void {
         this.news = [];
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'article-link');
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'newsticker__box');
         
         newsNodes.forEach((_newsNode, idx) => {
 
@@ -38,17 +38,27 @@ export class NewsFourFourTwoEntity implements NewsSourceInterface {
             let url = '';
             
             // Title
-            
-            const titleNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'h3');
-            if (titleNodes.length>0) {
-                let titleNode: Node = titleNodes[0];
-                if (titleNode.children) {
-                    title = titleNode.children ? titleNode.children[0] as string : '';
-                }               
+            const linkNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'a');
+            if (linkNodes.length>0) {
+                let linkNode: Node = linkNodes[0];
+                const titleNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(linkNode, 'newsticker__subline')
+                .concat(this.newstrackerService.findNodesWithClassAttr(linkNode, 'newsticker__headline'));
+
+                if (titleNodes.length>0) {
+                    titleNodes.forEach((_titleNode, idx) => {
+                        if (_titleNode.children && _titleNode.children.length>0) {
+                            if (idx===0) {
+                                title=(_titleNode.children[0] as string);
+                            } else {
+                                content=(_titleNode.children[0] as string);
+                            }
+                        }
+                    })
+                }
+                url = `https://www.${this.url}${this.newstrackerService.getNodeAttr(linkNode, 'href')}`;
             }
 
             // Link
-            const linkNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'a');
             if (linkNodes.length>0) {
                 let linkNode: Node = linkNodes[0];
                 url = this.newstrackerService.getNodeAttr(linkNode, 'href');
@@ -90,7 +100,7 @@ export class NewsFourFourTwoEntity implements NewsSourceInterface {
         });
 
         this.news = this.news.filter((item, index, self) =>
-            index === self.findIndex(t => t.title === item.title)
+            index === self.findIndex(t => t.title === item.title && t.content === item.content)
           ).slice(0, this.maxItems);
     }
 }

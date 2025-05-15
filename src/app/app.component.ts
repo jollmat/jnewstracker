@@ -41,6 +41,7 @@ import { NewsLaCiutatEntity } from './model/entities/news-laciutat.entity';
 import { NewsMarcaEntity } from './model/entities/news-marca.entity';
 import { NewsSportEntity } from './model/entities/news-sport.entity';
 import { NewsFourFourTwoEntity } from './model/entities/news-fourfourtwo.entity';
+import { NewsTransferMarktEntity } from './model/entities/news-transfermarkt.entity';
 
 @Component({
   selector: 'app-root',
@@ -333,6 +334,12 @@ export class AppComponent implements OnInit {
           sourceFourFourTwoLaLigaEntity.loadNews(rootNode);
           this.newsAll = sourceFourFourTwoLaLigaEntity.news.concat(this.newsAll);
           source.news = sourceFourFourTwoLaLigaEntity.news;
+          break;
+        case 'transfermarkt': 
+          const sourceTransferMarktEntity: NewsTransferMarktEntity = new NewsTransferMarktEntity(source, this.newstrackerService);
+          sourceTransferMarktEntity.loadNews(rootNode);
+          this.newsAll = sourceTransferMarktEntity.news.concat(this.newsAll);
+          source.news = sourceTransferMarktEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {
