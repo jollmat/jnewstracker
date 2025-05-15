@@ -16,6 +16,10 @@ body {
     cursor: pointer;
 }
 
+.noscroll {
+    overflow: hidden !important;
+}
+
 .highlight {
     background-color: gold;
     color: #333;

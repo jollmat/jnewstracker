@@ -5,7 +5,7 @@
 
     <!-- SOURCES -->
     <div class="w-30 py-3 px-5 d-flex flex-column flex-grow-1 source-container" style="position: sticky; top: 0px;z-index: 1;">
-      <h3>Newstracker</h3>
+      <h3 class="title">Newstracker</h3>
       <div class="mb-4 d-flex flex-column">
           <div class="mb-1">Display mode:</div>
           <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -49,7 +49,14 @@
   <!-- Mobile layout -->
   <ng-container *ngIf="isMobile">
 
-    <div class="w-100 d-flex justify-content-start flex-column flex-grow-1 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-5': displayMode==='LIST', 'px-3': displayMode==='LIST' && !isMobile,'ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
+    <div class="w-100 d-flex justify-content-start flex-column flex-grow-1 news-container mobile" 
+      [ngClass]="{
+        'noscroll': showSources,
+        'flex-column': displayMode==='LIST', 
+        'px-3': displayMode==='LIST' && !isMobile,
+        'ps-3': displayMode==='GRID', 
+        'flex-wrap': displayMode==='GRID', 
+        'gap-3': displayMode==='GRID'}">
       
       <div class="w-100 d-flex justify-content-between align-items-start pt-3 pb-2 mobile-config px-3">
         <div class="d-flex flex-column">
@@ -122,7 +129,7 @@
 
 <!-- SOURCE Template -->
 <ng-template let-sourceItem="sourceItem" #sourceTemplate>
-  <div class="w-100 d-flex ps-2 source-check" [ngClass]="{'mobile': isMobile, 'py-1': isMobile, 'py-2': !isMobile}">
+  <div class="w-100 d-flex ps-2 source-check align-items-center" [ngClass]="{'mobile': isMobile, 'py-1': isMobile, 'py-2': !isMobile}">
 
       <div class="form-check form-switch d-flex justify-content-start align-items-start">
         <input  class="form-check-input me-1 cursor-pointer"
@@ -204,7 +211,13 @@
       <div class="d-flex flex-column p-2" [ngClass]="{'mobile-content': isMobile, 'justify-content-end': isMobile}">
         <div *ngIf="newsItem.title && newsItem.title.length>0" class="title px-3" [ngClass]="{'mobile': isMobile}">
           <span *ngIf="!(newsItem.url && newsItem.url.length>0)" [innerHTML]="newsItem.title | highlight:searchText"></span>
-          <a *ngIf="newsItem.url && newsItem.url.length>0" title="newsItem.title" href="{{newsItem.url}}" target="_blank" class="ellipsis-2" [innerHTML]="newsItem.title | highlight:searchText"></a>
+          <a *ngIf="newsItem.url && newsItem.url.length>0" 
+            title="newsItem.title" 
+            href="{{newsItem.url}}" 
+            target="_blank"
+            [ngClass]="{'ellipsis-2': newsItem.content.length>0, 'ellipsis-3': newsItem.content.length===0}"
+            [innerHTML]="newsItem.title | highlight:searchText">
+          </a>
         </div>
         <ng-container *ngIf="!isMobile">
           <div *ngIf="newsItem.content && newsItem.content.length>0" class="content py-2 px-3"><p [innerHTML]="newsItem.content | highlight:searchText"></p></div>

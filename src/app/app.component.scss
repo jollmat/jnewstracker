@@ -36,6 +36,10 @@
 .news-container {
     overflow: auto;
     margin-bottom: 30px;
+
+    &.mobile {
+        margin-bottom: 3px;
+    }
 }
 .news-grid-item {
     color: #fff;
@@ -147,9 +151,10 @@ input {
 
 h3 {
     &.title {
+        font-family: cursive;
+        letter-spacing: 5px;
         &.mobile {
             font-size: 34px;
-            font-family: cursive;
         }
     }
 }
