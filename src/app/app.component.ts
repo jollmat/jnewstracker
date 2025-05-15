@@ -35,6 +35,7 @@ import { NewsSaberVivirEntity } from './model/entities/news-sabervivir.entity';
 import { NewsNationalGeographicEntity } from './model/entities/news-nationalgeographic.entity';
 import { NewsRevistaGadgetEntity } from './model/entities/news-revistagadget.entity';
 import { NewsQuoEntity } from './model/entities/news-quo.entity';
+import { NewsEspacioMisterioEntity } from './model/entities/news-espaciomisterio.entity';
 
 @Component({
   selector: 'app-root',
@@ -280,6 +281,12 @@ export class AppComponent implements OnInit {
           this.newsAll = sourceQuoEntity.news.concat(this.newsAll);
           source.news = sourceQuoEntity.news;
           break;
+        case 'espaciomisterio': 
+          const sourceEspacioMisterioEntity: NewsEspacioMisterioEntity = new NewsEspacioMisterioEntity(source, this.newstrackerService);
+          sourceEspacioMisterioEntity.loadNews(rootNode);
+          this.newsAll = sourceEspacioMisterioEntity.news.concat(this.newsAll);
+          source.news = sourceEspacioMisterioEntity.news;
+          break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {
         this.showSources = false;
@@ -356,9 +363,6 @@ export class AppComponent implements OnInit {
       _source.bgStyle = _source.bgStyle || this.generateBgStyle();
       return _source;
     });
-
-    console.log('sources', this.sources);
-
 
     // Load sources news
     this.sources.filter((_source) => _source.active).forEach((_source) => {

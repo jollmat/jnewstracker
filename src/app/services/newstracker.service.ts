@@ -120,7 +120,8 @@ export class NewstrackerService {
       { id: 'sabervivir', name: 'Saber Vivir', url: 'sabervivirtv.com', active: false, news: [] },
       { id: 'nationalgeographic', name: 'National Geographic', url: 'nationalgeographic.com.es/', active: false, news: [] },
       { id: 'revistagadget', name: 'Revista Gadget', url: 'revista-gadget.es/', active: false, news: [] },
-      { id: 'quo', name: 'Quo', url: 'quo.eldiario.es/', active: false, news: [] }
+      { id: 'quo', name: 'Quo', url: 'quo.eldiario.es/', active: false, news: [] },
+      { id: 'espaciomisterio', name: 'Espacio Misterio', url: 'espaciomisterio.com/', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus'];
