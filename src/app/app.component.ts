@@ -36,6 +36,8 @@ import { NewsNationalGeographicEntity } from './model/entities/news-nationalgeog
 import { NewsRevistaGadgetEntity } from './model/entities/news-revistagadget.entity';
 import { NewsQuoEntity } from './model/entities/news-quo.entity';
 import { NewsEspacioMisterioEntity } from './model/entities/news-espaciomisterio.entity';
+import { NewsAngularUniversityEntity } from './model/entities/news-angularuniversity.entity';
+import { NewsLaCiutatEntity } from './model/entities/news-laciutat.entity';
 
 @Component({
   selector: 'app-root',
@@ -287,6 +289,18 @@ export class AppComponent implements OnInit {
           this.newsAll = sourceEspacioMisterioEntity.news.concat(this.newsAll);
           source.news = sourceEspacioMisterioEntity.news;
           break;
+        case 'angularuniversity': 
+          const sourceAngularUniversityEntity: NewsAngularUniversityEntity = new NewsAngularUniversityEntity(source, this.newstrackerService);
+          sourceAngularUniversityEntity.loadNews(rootNode);
+          this.newsAll = sourceAngularUniversityEntity.news.concat(this.newsAll);
+          source.news = sourceAngularUniversityEntity.news;
+          break;
+        case 'laciutat': 
+          const sourceLaCiutatEntity: NewsLaCiutatEntity = new NewsLaCiutatEntity(source, this.newstrackerService);
+          sourceLaCiutatEntity.loadNews(rootNode);
+          this.newsAll = sourceLaCiutatEntity.news.concat(this.newsAll);
+          source.news = sourceLaCiutatEntity.news;
+          break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {
         this.showSources = false;
@@ -360,7 +374,9 @@ export class AppComponent implements OnInit {
       _source.error = false;
       _source.loaded = false;
       _source.news = [];
-      _source.bgStyle = _source.bgStyle || this.generateBgStyle();
+      if (!_source.active || !_source.bgStyle) {
+        _source.bgStyle = this.generateBgStyle();
+      }
       return _source;
     });
 
