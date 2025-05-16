@@ -127,7 +127,7 @@ export class NewstrackerService {
       { id: 'marca', name: 'Marca', url: 'marca.com', active: false, news: [] },
       { id: 'sport', name: 'Sport', url: 'sport.es/es/', active: false, news: [] },
       { id: 'fourfourtwo', name: 'Four Four Two (Transfers)', url: 'fourfourtwo.com/transfer-news', active: false, news: [] },
-      { id: 'fourfourtwo-premier', name: 'Four Four Two (Premier League)', url: 'fourfourtwo.com/premier-league', active: false, news: [] },
+      { id: 'fourfourtwo-premier', name: 'Four Four Two (Premier)', url: 'fourfourtwo.com/premier-league', active: false, news: [] },
       { id: 'fourfourtwo-laliga', name: 'Four Four Two (La Liga)', url: 'fourfourtwo.com/la-liga', active: false, news: [] },
       { id: 'transfermarkt', name: 'Transfermarkt', url: 'transfermarkt.es', active: false, news: [] }
     ];

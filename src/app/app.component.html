@@ -4,9 +4,9 @@
   <ng-container *ngIf="!isMobile">
 
     <!-- SOURCES -->
-    <div class="w-30 py-3 px-5 d-flex flex-column flex-grow-1 source-container" style="position: sticky; top: 0px;z-index: 1;">
+    <div class="w-30 py-3 px-4 d-flex flex-column flex-grow-1 source-container" style="position: sticky; top: 0px;z-index: 1;">
       <h3 class="title">Newstracker</h3>
-      <div class="mb-4 d-flex flex-column">
+      <div class="mb-4 mt-2 d-flex flex-column">
           <div class="mb-1">Display mode:</div>
           <div class="btn-group mr-2" role="group" aria-label="First group">
             <button type="button" class="btn btn-secondary btn-sm" (click)="displayMode='GRID'" [disabled]="displayMode==='GRID'" [ngClass]="{'active': displayMode==='GRID'}">
