@@ -28,20 +28,23 @@
     <!-- End SOURCES -->
 
     <!-- NEWS -->
-    <div class="w-70 d-flex justify-content-start flex-column flex-grow-1 py-3 news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-3': displayMode==='LIST', 'px-3': displayMode==='LIST','ps-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
-      <ng-container *ngIf="news && news.length>0">
-        <ng-container *ngFor="let newsItem of news">
-          <ng-container [ngTemplateOutlet]="newsItemTemplate" [ngTemplateOutletContext]="{newsItem}"></ng-container>
+    <div class="w-70 d-flex flex-column flex-grow-1">
+      <ng-container *ngIf="activeSources>0" [ngTemplateOutlet]="sourceTagsTemplate"></ng-container>
+      <div class="d-flex justify-content-around flex-column news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-3': displayMode==='LIST', 'p-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
+        <ng-container *ngIf="news && news.length>0">
+          <ng-container *ngFor="let newsItem of news">
+            <ng-container [ngTemplateOutlet]="newsItemTemplate" [ngTemplateOutletContext]="{newsItem}"></ng-container>
+          </ng-container>
         </ng-container>
-      </ng-container>
-      <ng-container *ngIf="activeSources===0">
-        <div class="text-center py-5 mt-5 w-100">
-          <div class="text-center py-5 mt-5 w-100">Please, select a source.</div>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="activeSources>0 && news && news.length===0">
-        <div class="text-center py-5 mt-5 w-100">Loading news from {{activeSources}} sources...</div>
-      </ng-container>
+        <ng-container *ngIf="activeSources===0">
+          <div class="text-center py-5 mt-5 w-100">
+            <div class="text-center py-5 mt-5 w-100">Please, select a source.</div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="activeSources>0 && news && news.length===0">
+          <div class="text-center py-5 mt-5 w-100">Loading news from {{activeSources}} sources...</div>
+        </ng-container>
+      </div>
     </div>
     <!-- End NEWS -->
 
@@ -69,33 +72,7 @@
         </button>
       </div>
 
-      <ng-container *ngIf="activeSources>0">
-        <div class="w-100 d-flex flex-column mobile-sources" [ngClass]="{'p-3': activeSources>1}">
-          <div class="d-flex flex-wrap" [ngClass]="{'gap-2': activeSources>1, 'my-1': activeSources>1}">
-            <ng-container *ngFor="let source of sources; let i = index">
-              <ng-container *ngIf="source.active">
-                <span class="badge d-flex justify-content-between align-items-center" 
-                  [ngClass]="{
-                    'loading': !source.loaded, 
-                    'loaded': source.loaded, 
-                    'w-100': activeSources===1,
-                    'br-0': activeSources===1,
-                    'alone': activeSources===1,
-                    'px-4': activeSources===1
-                  }" 
-                  style="background:{{(source.loaded)?source.bgStyle : 'transparent'}}">
-                    <span>
-                      {{source.name}}
-                      <span class="num-news ms-2" *ngIf="source.loaded"><sup>{{source.news.length}}</sup></span>
-                      <i *ngIf="!source.loaded" class="fas fa-spinner fa-spin ms-2"></i>
-                    </span>
-                    <i *ngIf="source.loaded" class="fas fa-close cursor-pointer close-sources ms-2" (click)="source.active=false;removeSourceNews(source)"></i>
-                </span>
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </ng-container>
+      <ng-container *ngIf="activeSources>0" [ngTemplateOutlet]="sourceTagsTemplate"></ng-container>
 
       <ng-container *ngIf="showSources">
         <div class="w-100 d-flex flex-column mobile-sources pt-3">
@@ -127,9 +104,37 @@
   </ng-container>
   <!-- End Mobile layout -->
 
-  
-
 </div>
+
+<!-- Source tags Template -->
+<ng-template #sourceTagsTemplate>
+  <div class="w-100 d-flex flex-column mobile-sources" [ngClass]="{'p-3': activeSources>1}">
+    <div class="d-flex flex-wrap" [ngClass]="{'gap-2': activeSources>1, 'my-1': activeSources>1}">
+      <ng-container *ngFor="let source of sources; let i = index">
+        <ng-container *ngIf="source.active">
+          <span class="badge d-flex justify-content-between align-items-center" 
+            [ngClass]="{
+              'loading': !source.loaded, 
+              'loaded': source.loaded, 
+              'w-100': activeSources===1,
+              'br-0': activeSources===1,
+              'alone': activeSources===1,
+              'px-4': activeSources===1
+            }" 
+            style="background:{{(source.loaded)?source.bgStyle : 'transparent'}}">
+              <span>
+                {{source.name}}
+                <span class="num-news ms-2" *ngIf="source.loaded"><sup>{{source.news.length}}</sup></span>
+                <i *ngIf="!source.loaded" class="fas fa-spinner fa-spin ms-2"></i>
+              </span>
+              <i *ngIf="source.loaded" class="fas fa-close cursor-pointer close-sources ms-2" (click)="source.active=false;removeSourceNews(source)"></i>
+          </span>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+<!-- End Source tags Template -->
 
 <!-- SOURCE Template -->
 <ng-template let-sourceItem="sourceItem" #sourceTemplate>
@@ -171,11 +176,12 @@
       </ng-container>
   </div>
 </ng-template>
+<!-- End SOURCE Template -->
 
 <!-- NEWS ITEM Template -->
 <ng-template let-newsItem="newsItem" #newsItemTemplate>
   <ng-container *ngIf="displayMode==='GRID'">
-    <div class="card news-grid-item" style="width: 12rem;">
+    <div class="card news-grid-item">
       <img *ngIf="newsItem.imageUrl && newsItem.imageUrl.length>0" class="card-img-top" src="{{newsItem.imageUrl}}" alt="">
       <img *ngIf="!(newsItem.imageUrl && newsItem.imageUrl.length>0)" class="card-img-top" src="{{getDefaultImage()}}" alt="">
       <div class="card-body">
@@ -246,3 +252,4 @@
   </ng-container>
   
 </ng-template>
+<!-- End NEWS ITEM Template -->
