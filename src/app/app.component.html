@@ -31,27 +31,28 @@
       <!-- Sources -->
       <div class="mb-2 sources-title">Sources</div>
       <div class="source-check-container">
-        <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
+        <ng-container *ngFor="let sourceItem of activeSources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
+        <ng-container *ngFor="let sourceItem of inactiveSources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
       </div>
     </div>
     <!-- End SOURCES -->
 
     <!-- NEWS -->
     <div class="w-70 d-flex flex-column flex-grow-1">
-      <ng-container *ngIf="activeSources>0" [ngTemplateOutlet]="sourceTagsTemplate"></ng-container>
+      <ng-container *ngIf="numActiveSources>0" [ngTemplateOutlet]="sourceTagsTemplate"></ng-container>
       <div class="d-flex justify-content-around flex-column news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-3': displayMode==='LIST', 'p-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
         <ng-container *ngIf="news && news.length>0">
           <ng-container *ngFor="let newsItem of news">
             <ng-container [ngTemplateOutlet]="newsItemTemplate" [ngTemplateOutletContext]="{newsItem}"></ng-container>
           </ng-container>
         </ng-container>
-        <ng-container *ngIf="activeSources===0">
+        <ng-container *ngIf="numActiveSources===0">
           <div class="text-center py-5 mt-5 w-100">
             <div class="text-center py-5 mt-5 w-100">Please, select a source.</div>
           </div>
         </ng-container>
-        <ng-container *ngIf="activeSources>0 && news && news.length===0">
-          <div class="text-center py-5 mt-5 w-100">Loading news from {{activeSources}} sources...</div>
+        <ng-container *ngIf="numActiveSources>0 && news && news.length===0">
+          <div class="text-center py-5 mt-5 w-100">Loading news from {{numActiveSources}} sources...</div>
         </ng-container>
       </div>
     </div>
@@ -81,7 +82,7 @@
         </button>
       </div>
 
-      <ng-container *ngIf="activeSources>0" [ngTemplateOutlet]="sourceTagsTemplate"></ng-container>
+      <ng-container *ngIf="numActiveSources>0" [ngTemplateOutlet]="sourceTagsTemplate"></ng-container>
 
       <ng-container *ngIf="showSources">
         <div class="w-100 d-flex flex-column mobile-sources pt-3">
@@ -100,13 +101,13 @@
           <ng-container [ngTemplateOutlet]="newsItemTemplate" [ngTemplateOutletContext]="{newsItem}"></ng-container>
         </ng-container>
       </ng-container>
-      <ng-container *ngIf="activeSources===0 && !showSources">
+      <ng-container *ngIf="numActiveSources===0 && !showSources">
         <div class="text-center py-5 mt-5 w-100">Please, select a source. 
           <br /><button class="btn btn-sm btn-secondary mt-3" (click)="showSources=true;">Source selection</button>
         </div>
       </ng-container>
-      <ng-container *ngIf="activeSources>0 && news && news.length===0">
-        <div class="text-center py-5 mt-5 w-100">Loading news from {{activeSources}} sources...</div>
+      <ng-container *ngIf="numActiveSources>0 && news && news.length===0">
+        <div class="text-center py-5 mt-5 w-100">Loading news from {{numActiveSources}} sources...</div>
       </ng-container>
     </div>
 
@@ -117,18 +118,18 @@
 
 <!-- Source tags Template -->
 <ng-template #sourceTagsTemplate>
-  <div class="w-100 d-flex flex-column mobile-sources" [ngClass]="{'p-3': activeSources>1}">
-    <div class="d-flex flex-wrap" [ngClass]="{'gap-2': activeSources>1, 'my-1': activeSources>1}">
+  <div class="w-100 d-flex flex-column mobile-sources" [ngClass]="{'p-3': numActiveSources>1}">
+    <div class="d-flex flex-wrap" [ngClass]="{'gap-2': numActiveSources>1, 'my-1': numActiveSources>1}">
       <ng-container *ngFor="let source of sources; let i = index">
         <ng-container *ngIf="source.active">
           <span class="badge d-flex justify-content-between align-items-center" 
             [ngClass]="{
               'loading': !source.loaded, 
               'loaded': source.loaded, 
-              'w-100': activeSources===1,
-              'br-0': activeSources===1,
-              'alone': activeSources===1,
-              'px-4': activeSources===1
+              'w-100': numActiveSources===1,
+              'br-0': numActiveSources===1,
+              'alone': numActiveSources===1,
+              'px-4': numActiveSources===1
             }" 
             style="background:{{(source.loaded)?source.bgStyle : 'transparent'}}">
               <span>

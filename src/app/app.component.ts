@@ -100,8 +100,14 @@ export class AppComponent implements OnInit {
       .subscribe(value => this.doSearch());
   }
 
-  get activeSources(): number {
+  get numActiveSources(): number {
     return this.sources.filter((_source) => _source.active).length;
+  }
+  get activeSources(): NewsSourceInterface[] {
+    return this.sources.filter((_source) => _source.active);
+  }
+  get inactiveSources(): NewsSourceInterface[] {
+    return this.sources.filter((_source) => !_source.active);
   }
 
   isTabletScreen(): boolean {
