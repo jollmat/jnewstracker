@@ -6,6 +6,7 @@ import { environment } from '../../../src/environments/environment';
 import { Node } from '../model/interfaces/node.interface';
 
 import { NewsSourceInterface } from '../model/interfaces/news-source.interface';
+import { NewsSourceGroupInterface } from '../model/interfaces/news-source-group.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -133,7 +134,6 @@ export class NewstrackerService {
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus'];
-
     const storedSourcesStr: string | null = localStorage.getItem(this.APP_STORED_NEWS_SOURCES);
 
     if(storedSourcesStr && storedSourcesStr!=null) {
@@ -161,8 +161,20 @@ export class NewstrackerService {
     } else {
       this.saveSources(defaultSources);
     }
-    
     return defaultSources;
+  }
+
+  getSourceGroups(): NewsSourceGroupInterface[] {
+    const defaultSourceGroups: NewsSourceGroupInterface[] = [
+      { name: 'Sports', sources: ['mundodeportivo', 'francefootball', 'guerinsportivo', 'marca', 'sport', 'diarioas', 'fourfourtwo', 'fourfourtwo-premier', 'ourfourtwo-laliga', 'transfermarkt']},
+      { name: 'Local News', sources: ['eixdiari', 'ecodesitges', 'laciutat'] },
+      { name: 'Generic News', sources: ['efe', 'elpais', 'acn', 'mirror', 'abc', 'lavanguardia', 'thetimes', 'veinteminutos'] },
+      { name: 'Health', sources: ['cuerpomente', 'sabervivir'] },
+      { name: 'Tech & Gaming', sources: ['hobbyconsolas', 'elsotanoperdido', 'computerhoy', 'xataka', 'revistagadget'] },
+      { name: 'Science', sources: ['muyinteresante', 'sapiens', 'nationalgeographic', 'quo', 'espaciomisterio'] },
+      { name: 'Programmimg', sources: ['angularuniversity'] }
+    ];
+    return defaultSourceGroups;
   }
 
 }

@@ -6,8 +6,9 @@
     <!-- SOURCES -->
     <div class="w-30 py-3 px-4 d-flex flex-column flex-grow-1 source-container" style="position: sticky; top: 0px;z-index: 1;">
       <h3 class="title">Newstracker</h3>
+      <!-- Display mode -->
       <div class="mb-4 mt-2 d-flex flex-column">
-          <div class="mb-1">Display mode:</div>
+          <div class="mb-1">Display mode</div>
           <div class="btn-group mr-2" role="group" aria-label="First group">
             <button type="button" class="btn btn-secondary btn-sm" (click)="displayMode='GRID'" [disabled]="displayMode==='GRID'" [ngClass]="{'active': displayMode==='GRID'}">
               <i class="fas fa-grip me-2"></i>Grid
@@ -17,10 +18,18 @@
             </button>
           </div>
       </div>
+      <!-- Search box -->
       <div class="mb-4 d-flex flex-column">
         <input class="form-control input-no-border" placeholder="Search text" #searchTextInputRef (input)="onSearchTextChange(searchTextInputRef.value)" />
       </div>
-      <div class="mb-2 sources-title">Sources:</div>
+      <!-- Source groups -->
+      <div class="group-picker d-flex flex-wrap gap-2 mb-4">
+        <ng-container *ngFor="let sourceGroupItem of sourceGroups">
+          <span class="badge cursor-pointer" [ngClass]="{'selected': isSourceGroupSelected(sourceGroupItem)}" (click)="toggleSourceGroup(sourceGroupItem)">{{sourceGroupItem.name}}</span>
+        </ng-container>
+      </div>
+      <!-- Sources -->
+      <div class="mb-2 sources-title">Sources</div>
       <div class="source-check-container">
         <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
       </div>

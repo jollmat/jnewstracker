@@ -248,3 +248,17 @@ span {
 .close-sources {
     font-size: 25px;
 }
+
+.group-picker {
+    .badge {
+        font-size: 15px;
+        color: #fff;
+        border: 1px solid #ccc;
+
+        &.selected {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+    }
+}

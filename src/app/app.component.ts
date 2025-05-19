@@ -42,6 +42,7 @@ import { NewsMarcaEntity } from './model/entities/news-marca.entity';
 import { NewsSportEntity } from './model/entities/news-sport.entity';
 import { NewsFourFourTwoEntity } from './model/entities/news-fourfourtwo.entity';
 import { NewsTransferMarktEntity } from './model/entities/news-transfermarkt.entity';
+import { NewsSourceGroupInterface } from './model/interfaces/news-source-group.interface';
 
 @Component({
   selector: 'app-root',
@@ -59,6 +60,7 @@ export class AppComponent implements OnInit {
   isDesktop!: boolean;
 
   sources: NewsSourceInterface[] = [];
+  sourceGroups: NewsSourceGroupInterface[] = [];
 
   newsAll: NewsItemInterface[] = [];
   news: NewsItemInterface[] = [];
@@ -374,6 +376,45 @@ export class AppComponent implements OnInit {
     });
   }
 
+  loadSourceGroups() {
+    this.sourceGroups = this.newstrackerService.getSourceGroups().sort((a, b) => {
+      return a.name>b.name? 1 : -1;
+    });
+  }
+
+  toggleSourceGroup(sourceGroup: NewsSourceGroupInterface) {
+    if (this.isSourceGroupSelected(sourceGroup)) {
+      this.unselectSourceGroup(sourceGroup);
+    } else {
+      this.selectSourceGroup(sourceGroup);
+    }
+  }
+  isSourceGroupSelected(sourceGroup: NewsSourceGroupInterface): boolean {
+    return sourceGroup.sources.length === this.sources.filter((_source) => {
+      return _source.active && sourceGroup.sources.includes(_source.id);
+    }).length;
+  }
+  selectSourceGroup(sourceGroup: NewsSourceGroupInterface) {
+    this.sources.forEach((_source) => {
+      if (sourceGroup.sources.includes(_source.id)) {
+        if (!_source.active) {
+          _source.active = true;
+          this.checkLoadSource(_source);
+        }
+      }
+    });
+  }
+  unselectSourceGroup(sourceGroup: NewsSourceGroupInterface) {
+    this.sources.forEach((_source) => {
+      if (sourceGroup.sources.includes(_source.id)) {
+        if (_source.active) {
+          _source.active = false;
+          this.checkLoadSource(_source);
+        }
+      }
+    });
+  }
+
   getNewsBgImageStyle(newsItem: NewsItemInterface): string {
     if (!newsItem.imageUrl || newsItem.imageUrl.trim().length===0) {
       return '';
@@ -424,6 +465,9 @@ export class AppComponent implements OnInit {
     this.sources.filter((_source) => _source.active).forEach((_source) => {
       this.loadSourceNews(_source);
     });
+
+    // Source groups
+    this.loadSourceGroups();
 
   }
 }
