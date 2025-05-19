@@ -130,7 +130,9 @@ export class NewstrackerService {
       { id: 'fourfourtwo', name: 'Four Four Two (Transfers)', url: 'fourfourtwo.com/transfer-news', active: false, news: [] },
       { id: 'fourfourtwo-premier', name: 'Four Four Two (Premier)', url: 'fourfourtwo.com/premier-league', active: false, news: [] },
       { id: 'fourfourtwo-laliga', name: 'Four Four Two (La Liga)', url: 'fourfourtwo.com/la-liga', active: false, news: [] },
-      { id: 'transfermarkt', name: 'Transfermarkt', url: 'transfermarkt.es', active: false, news: [] }
+      { id: 'transfermarkt', name: 'Transfermarkt', url: 'transfermarkt.es', active: false, news: [] },
+      { id: 'onze', name: 'Onze', url: 'onzemondial.com/', active: false, news: [] },
+      { id: 'espntransfers', name: 'ESPN Transfers', url: 'espn.com/soccer/transfers', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus'];
@@ -166,13 +168,34 @@ export class NewstrackerService {
 
   getSourceGroups(): NewsSourceGroupInterface[] {
     const defaultSourceGroups: NewsSourceGroupInterface[] = [
-      { name: 'Sports', sources: ['mundodeportivo', 'francefootball', 'guerinsportivo', 'marca', 'sport', 'diarioas', 'fourfourtwo', 'fourfourtwo-premier', 'fourfourtwo-laliga', 'transfermarkt']},
-      { name: 'Local News', sources: ['eixdiari', 'ecodesitges', 'laciutat'] },
-      { name: 'Generic News', sources: ['efe', 'elpais', 'acn', 'mirror', 'abc', 'lavanguardia', 'thetimes', 'veinteminutos'] },
-      { name: 'Health', sources: ['cuerpomente', 'sabervivir'] },
-      { name: 'Tech & Gaming', sources: ['hobbyconsolas', 'elsotanoperdido', 'computerhoy', 'xataka', 'revistagadget'] },
-      { name: 'Science', sources: ['muyinteresante', 'sapiens', 'nationalgeographic', 'quo', 'espaciomisterio'] },
-      { name: 'Programmimg', sources: ['angularuniversity'] }
+      { 
+        name: 'Sports', 
+        sources: ['mundodeportivo', 'francefootball', 'guerinsportivo', 'marca', 'sport', 'diarioas', 'fourfourtwo', 'fourfourtwo-premier', 'fourfourtwo-laliga', 'transfermarkt', 'onze', 'espntransfers']
+      },
+      { 
+        name: 'Local News', 
+        sources: ['eixdiari', 'ecodesitges', 'laciutat'] 
+      },
+      { 
+        name: 'Generic News', 
+        sources: ['efe', 'elpais', 'acn', 'mirror', 'abc', 'lavanguardia', 'thetimes', 'veinteminutos'] 
+      },
+      { 
+        name: 'Health', 
+        sources: ['cuerpomente', 'sabervivir'] 
+      },
+      { 
+        name: 'Tech & Gaming', 
+        sources: ['hobbyconsolas', 'elsotanoperdido', 'computerhoy', 'xataka', 'revistagadget'] 
+      },
+      { 
+        name: 'Science', 
+        sources: ['muyinteresante', 'sapiens', 'nationalgeographic', 'quo', 'espaciomisterio'] 
+      },
+      { 
+        name: 'Programmimg', 
+        sources: ['angularuniversity'] 
+      }
     ];
     return defaultSourceGroups;
   }

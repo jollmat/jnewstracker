@@ -9,6 +9,7 @@ import { Node } from './model/interfaces/node.interface';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { HighlightPipe } from './pipes/highlight.pipe';
+import { NewsSourceGroupInterface } from './model/interfaces/news-source-group.interface';
 import { NewsItemInterface } from './model/interfaces/news-item.interface';
 import { NewsEfeEntity } from './model/entities/news-efe.entity';
 import { NewsElPaisEntity } from './model/entities/news-elpais.entity';
@@ -42,7 +43,8 @@ import { NewsMarcaEntity } from './model/entities/news-marca.entity';
 import { NewsSportEntity } from './model/entities/news-sport.entity';
 import { NewsFourFourTwoEntity } from './model/entities/news-fourfourtwo.entity';
 import { NewsTransferMarktEntity } from './model/entities/news-transfermarkt.entity';
-import { NewsSourceGroupInterface } from './model/interfaces/news-source-group.interface';
+import { NewsOnzeEntity } from './model/entities/news-onze.entity';
+import { NewsEspnTransfersEntity } from './model/entities/news-espntransfers.entity';
 
 @Component({
   selector: 'app-root',
@@ -371,6 +373,18 @@ export class AppComponent implements OnInit {
           this.newsAll = sourceTransferMarktEntity.news.concat(this.newsAll);
           source.news = sourceTransferMarktEntity.news;
           break;
+        case 'onze': 
+          const sourceOnzeEntity: NewsOnzeEntity = new NewsOnzeEntity(source, this.newstrackerService);
+          sourceOnzeEntity.loadNews(rootNode);
+          this.newsAll = sourceOnzeEntity.news.concat(this.newsAll);
+          source.news = sourceOnzeEntity.news;
+          break;
+        case 'espntransfers': 
+          const sourceEspnTransfersEntity: NewsEspnTransfersEntity = new NewsEspnTransfersEntity(source, this.newstrackerService);
+          sourceEspnTransfersEntity.loadNews(rootNode);
+          this.newsAll = sourceEspnTransfersEntity.news.concat(this.newsAll);
+          source.news = sourceEspnTransfersEntity.news;
+          break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {
         this.showSources = false;
@@ -495,5 +509,13 @@ export class AppComponent implements OnInit {
     // Source groups
     this.loadSourceGroups();
 
+    const sourcesWithNoGroup: NewsSourceInterface[] = this.sources.filter((_source) => {
+      return !this.sourceGroups.some((_sourceGroup) => {
+        return _sourceGroup.sources.includes(_source.id);
+      });
+    });
+    if (sourcesWithNoGroup.length>0) {
+      console.warn('Sources with no group', sourcesWithNoGroup);
+    }
   }
 }
