@@ -132,7 +132,8 @@ export class NewstrackerService {
       { id: 'fourfourtwo-laliga', name: 'Four Four Two (La Liga)', url: 'fourfourtwo.com/la-liga', active: false, news: [] },
       { id: 'transfermarkt', name: 'Transfermarkt', url: 'transfermarkt.es', active: false, news: [] },
       { id: 'onze', name: 'Onze', url: 'onzemondial.com/', active: false, news: [] },
-      { id: 'espntransfers', name: 'ESPN Transfers', url: 'espn.com/soccer/transfers', active: false, news: [] }
+      { id: 'espntransfers', name: 'ESPN Transfers', url: 'espn.com/soccer/transfers', active: false, news: [] },
+      { id: 'angularlove', name: 'Angular.love', url: 'angular.love/news', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus'];
@@ -194,7 +195,7 @@ export class NewstrackerService {
       },
       { 
         name: 'Programmimg', 
-        sources: ['angularuniversity'] 
+        sources: ['angularuniversity', 'angularlove'] 
       }
     ];
     return defaultSourceGroups;

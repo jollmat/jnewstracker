@@ -45,6 +45,7 @@ import { NewsFourFourTwoEntity } from './model/entities/news-fourfourtwo.entity'
 import { NewsTransferMarktEntity } from './model/entities/news-transfermarkt.entity';
 import { NewsOnzeEntity } from './model/entities/news-onze.entity';
 import { NewsEspnTransfersEntity } from './model/entities/news-espntransfers.entity';
+import { NewsAngularLoveEntity } from './model/entities/news-angularlove.entity';
 
 @Component({
   selector: 'app-root',
@@ -384,6 +385,12 @@ export class AppComponent implements OnInit {
           sourceEspnTransfersEntity.loadNews(rootNode);
           this.newsAll = sourceEspnTransfersEntity.news.concat(this.newsAll);
           source.news = sourceEspnTransfersEntity.news;
+          break;
+        case 'angularlove': 
+          const sourceAngularLoveEntity: NewsAngularLoveEntity = new NewsAngularLoveEntity(source, this.newstrackerService);
+          sourceAngularLoveEntity.loadNews(rootNode);
+          this.newsAll = sourceAngularLoveEntity.news.concat(this.newsAll);
+          source.news = sourceAngularLoveEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {
