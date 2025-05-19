@@ -55,11 +55,19 @@ export class NewsEspnTransfersEntity implements NewsSourceInterface {
                         newsDate = dateItem.toDate();
                     }
                 }
-                const playerCells: Node[] = this.newstrackerService.findNodesWithTag(cells[1], 'a');
+                let playerCells: Node[] = this.newstrackerService.findNodesWithTag(cells[1], 'a');
                 if (playerCells.length>0) {
                     const playerCell: Node = playerCells[0] as Node;
                     if (playerCell.children && playerCell.children.length>0) {
                         title = `<span class="text-info">${playerCell.children[0] as string}</span>`;
+                    }
+                } else {
+                    playerCells = this.newstrackerService.findNodesWithTag(cells[1], 'span');
+                    if (playerCells.length>0) {
+                        const playerCell: Node = playerCells[0] as Node;
+                        if (playerCell.children && playerCell.children.length>0) {
+                            title = `<span class="text-info">${playerCell.children[0] as string}</span>`;
+                        }
                     }
                 }
                 const fromCells: Node[] = this.newstrackerService.findNodesWithTag(cells[2], 'span');
