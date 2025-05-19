@@ -79,14 +79,38 @@ export class AppComponent implements OnInit {
 
     // Decive config
     this.deviceType = this.deviceService.getDeviceInfo().deviceType;
-    this.isMobile = this.deviceService.isMobile();
-    this.isTablet = this.deviceService.isTablet();
-    this.isDesktop = this.deviceService.isDesktop();
+    this.isMobile = this.deviceService.isMobile() && this.isMobileScreen();
+    this.isTablet = this.deviceService.isTablet() || this.isTabletScreen();
+    this.isDesktop = this.deviceService.isDesktop() && this.isDesktopScreen();
+
+    /*
+    console.group('Device info');
+    console.log('userAgent', navigator.userAgent);
+    console.log('deviceType', this.deviceType);
+    console.log('width', window.innerWidth);
+    console.log('isMobile', this.isMobile);
+    console.log('isTablet', this.isTablet);
+    console.log('isDesktop', this.isDesktop);
+    console.groupEnd();
+    */
 
     // Search text change event config
     this.searchText$
       .pipe(debounceTime(300))
       .subscribe(value => this.doSearch());
+  }
+
+  isTabletScreen(): boolean {
+    const width = window.innerWidth;
+    return width >= 768 && width <1200;
+  }
+
+  isMobileScreen(): boolean {
+    return window.innerWidth <= 767;
+  }
+
+  isDesktopScreen(): boolean {
+    return window.innerWidth >= 1200;
   }
 
   onSearchTextChange(value: string) {
