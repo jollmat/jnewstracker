@@ -252,8 +252,8 @@ span {
 .group-picker {
     .badge {
         font-size: 15px;
-        color: #fff;
-        border: 1px solid #ccc;
+        color: #ccc;
+        border: 1px dashed #666;
 
         &.selected {
             background-color: #fff;
