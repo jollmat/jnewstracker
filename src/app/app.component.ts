@@ -100,6 +100,10 @@ export class AppComponent implements OnInit {
       .subscribe(value => this.doSearch());
   }
 
+  get activeSources(): number {
+    return this.sources.filter((_source) => _source.active).length;
+  }
+
   isTabletScreen(): boolean {
     const width = window.innerWidth;
     return width >= 768 && width <1200;
@@ -118,6 +122,11 @@ export class AppComponent implements OnInit {
     this.searchText = value.trim();
   }
 
+  timeInformed(date: Date) {
+    return date.getHours()>0 && date.getMinutes()>0;
+  }
+
+  /* Sources & news */
   doSearch() {
     this.news = this.newsAll.filter((_newsItem) => {
       return this.searchText.length===0 || 
@@ -130,11 +139,6 @@ export class AppComponent implements OnInit {
       return _newsItem;
     });
   }
-
-  get activeSources(): number {
-    return this.sources.filter((_source) => _source.active).length;
-  }
-
   checkLoadSource(source: NewsSourceInterface) {
     if (source.active) {
       this.loadSourceNews(source);
@@ -142,7 +146,6 @@ export class AppComponent implements OnInit {
       this.removeSourceNews(source);
     }
   }
-
   removeSourceNews(source: NewsSourceInterface) {
     this.saveSources();
     this.newsAll = this.news.filter((_newsItem) => {
@@ -152,11 +155,6 @@ export class AppComponent implements OnInit {
       return _newsItem.source.id!==source.id;
     });
   }
-
-  timeInformed(date: Date) {
-    return date.getHours()>0 && date.getMinutes()>0;
-  }
-
   buildNews(source: NewsSourceInterface, rootNode: Node) {
     // Remove previous loaded news from this source
     this.removeSourceNews(source);
@@ -375,11 +373,9 @@ export class AppComponent implements OnInit {
     }
     
   }
-
   saveSources() {
     this.newstrackerService.saveSources(this.sources);
   }
-
   loadSourceNews(source: NewsSourceInterface) {
     this.saveSources();
     source.error = false;
@@ -400,12 +396,12 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /* Source groups */
   loadSourceGroups() {
     this.sourceGroups = this.newstrackerService.getSourceGroups().sort((a, b) => {
       return a.name>b.name? 1 : -1;
     });
   }
-
   toggleSourceGroup(sourceGroup: NewsSourceGroupInterface) {
     if (this.isSourceGroupSelected(sourceGroup)) {
       this.unselectSourceGroup(sourceGroup);

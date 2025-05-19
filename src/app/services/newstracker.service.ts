@@ -166,7 +166,7 @@ export class NewstrackerService {
 
   getSourceGroups(): NewsSourceGroupInterface[] {
     const defaultSourceGroups: NewsSourceGroupInterface[] = [
-      { name: 'Sports', sources: ['mundodeportivo', 'francefootball', 'guerinsportivo', 'marca', 'sport', 'diarioas', 'fourfourtwo', 'fourfourtwo-premier', 'ourfourtwo-laliga', 'transfermarkt']},
+      { name: 'Sports', sources: ['mundodeportivo', 'francefootball', 'guerinsportivo', 'marca', 'sport', 'diarioas', 'fourfourtwo', 'fourfourtwo-premier', 'fourfourtwo-laliga', 'transfermarkt']},
       { name: 'Local News', sources: ['eixdiari', 'ecodesitges', 'laciutat'] },
       { name: 'Generic News', sources: ['efe', 'elpais', 'acn', 'mirror', 'abc', 'lavanguardia', 'thetimes', 'veinteminutos'] },
       { name: 'Health', sources: ['cuerpomente', 'sabervivir'] },
