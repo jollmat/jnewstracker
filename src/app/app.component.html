@@ -209,7 +209,12 @@
               <small *ngIf="!timeInformed(newsItem.date)">{{newsItem.date | date:'dd.MM.yyyy'}}</small>
             </div>
           </ng-container>
-          <ng-container *ngIf="!newsItem.date"><div class="mb-3">&nbsp;</div></ng-container>
+          <ng-container *ngIf="newsItem.dateStr">
+            <div class="w-100 mb-3">
+              <small>{{newsItem.dateStr}}</small>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!newsItem.date && !newsItem.dateStr"><div class="mb-3">&nbsp;</div></ng-container>
           <div class="w-100">
             <a class="source" href="https://{{newsItem.source.url}}" target="_blank">{{newsItem.source.name}}</a>
           </div>
@@ -253,6 +258,11 @@
             <div class="w-100 mb-1">
               <small *ngIf="timeInformed(newsItem.date)">{{newsItem.date | date:'dd.MM.yyyy - HH:mm'}}</small>
               <small *ngIf="!timeInformed(newsItem.date)">{{newsItem.date | date:'dd.MM.yyyy'}}</small>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="newsItem.dateStr">
+            <div class="w-100 mb-1">
+              <small>{{newsItem.dateStr}}</small>
             </div>
           </ng-container>
           <a class="source" [ngClass]="{'mobile': isMobile}" href="https://{{newsItem.source.url}}" target="_blank">{{newsItem.source.name}}</a>
