@@ -25,7 +25,7 @@
       <!-- Source groups -->
       <div class="group-picker d-flex flex-wrap gap-2 mb-4">
         <ng-container *ngFor="let sourceGroupItem of sourceGroups">
-          <span class="badge cursor-pointer" [ngClass]="{'selected': isSourceGroupSelected(sourceGroupItem)}" (click)="toggleSourceGroup(sourceGroupItem)">{{sourceGroupItem.name}}</span>
+          <button class="btn btn-sm badge d-flex align-items-center" [ngClass]="{'selected': isSourceGroupSelected(sourceGroupItem)}" (click)="toggleSourceGroup(sourceGroupItem)">{{sourceGroupItem.name}} <span class="badge-count ms-2">{{sourceGroupItem.sources.length}}</span></button>
         </ng-container>
       </div>
       <!-- Sources -->

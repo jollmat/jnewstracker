@@ -252,13 +252,28 @@ span {
 .group-picker {
     .badge {
         font-size: 15px;
+        font-weight: 200;
         color: #ccc;
         border: 1px dashed #666;
+
+        .badge-count {
+            font-size: 10px;
+            background-color: transparent;
+            padding: 3px 5px;
+            border-radius: 10px;
+            font-weight: 400;
+            border: 1px solid #ccc;
+        }
 
         &.selected {
             background-color: #fff;
             border: 1px solid #ccc;
-            color: #333;
+            color: #666;
+
+            .badge-count {
+                background-color: #fff;
+                border: 1px solid #666;
+            }
         }
     }
 }
