@@ -25,6 +25,11 @@ export class NewsEspnTransfersEntity implements NewsSourceInterface {
         this.news = news || [];
     }
 
+    getImageUrl(): string {
+        const randomInt = Math.floor(Math.random() * 6);
+        return `./assets/img/football${randomInt}.png`;
+    }
+
     loadNews(node: Node): void {
         this.news = [];
         const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'Table__TR');
@@ -78,7 +83,7 @@ export class NewsEspnTransfersEntity implements NewsSourceInterface {
                         title+=` [${costCell.children[0] as string}]`;
                     }
                 }
-                imageUrl = './assets/img/football1.png';
+                imageUrl = this.getImageUrl()
             }
             
             if (title.length>0) {
