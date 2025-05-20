@@ -422,6 +422,7 @@ export class AppComponent implements OnInit {
           source.news = sourceVisitSitgesEntity.news;
           break;
         case 'vogue': 
+        case 'glamour': 
           const sourceVogueEntity: NewsVogueEntity = new NewsVogueEntity(source, this.newstrackerService);
           sourceVogueEntity.loadNews(rootNode);
           this.newsAll = sourceVogueEntity.news.concat(this.newsAll);

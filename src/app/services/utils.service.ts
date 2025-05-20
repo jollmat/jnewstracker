@@ -30,4 +30,20 @@ export class UtilsService {
     return result;
   }
 
+  static getAttributeValuesFromHtml(htmlString: string, attributeName: string): string {
+    const container = document.createElement('div');
+    container.innerHTML = htmlString;
+  
+    const elements = container.querySelectorAll('*');
+    let value = '';
+  
+    elements.forEach(el => {
+      if (el.hasAttribute(attributeName)) {
+        value = el.getAttribute(attributeName) as string;
+      }
+    });
+  
+    return value;
+  }
+
 }

@@ -1,4 +1,5 @@
 import { NewstrackerService } from "../../services/newstracker.service";
+import { UtilsService } from "../../services/utils.service";
 import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
@@ -12,7 +13,7 @@ export class NewsVogueEntity implements NewsSourceInterface {
     loaded?: boolean | undefined;
     news: NewsItemInterface[];
 
-    maxItems = 15;
+    maxItems = 25;
 
     constructor({id, name, url, active, error, loaded, news}: Partial<NewsSourceInterface>, private newstrackerService: NewstrackerService) {
         this.id = id || '';
@@ -54,12 +55,26 @@ export class NewsVogueEntity implements NewsSourceInterface {
                 if (linkNode.children && linkNode.children.length>0) {
                     url = this.newstrackerService.getNodeAttr(linkNode, 'href');
                 }
+                if (!url.startsWith('https://')) {
+                    url = `https://${this.url}${this.newstrackerService.getNodeAttr(linkNode, 'href')}`;
+                }
             }
             if (imageNodes.length>0) {
                 const imageNode: Node = imageNodes[0];
                 imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'src');
             } else {
-                imageUrl = idx===0? './assets/img/vogue1.png' : './assets/img/vogue2.png';
+                imageNodes = this.newstrackerService.findNodesWithTag(_newsNode, 'picture');
+                if (this.newstrackerService.findNodesWithTag(imageNodes[0], 'noscript').length>0) {
+                    const noscriptNodes: Node[] = this.newstrackerService.findNodesWithTag(imageNodes[0], 'noscript');
+                    if (noscriptNodes.length>0) {
+                        const noscriptNode: Node = noscriptNodes[0];
+                        if (noscriptNode.children && noscriptNode.children.length>0) {
+                            imageUrl = UtilsService.getAttributeValuesFromHtml(noscriptNode.children[0] as string, 'srcSet');
+                        }
+                    }
+                } else {
+                    imageUrl = idx===0? `./assets/img/${this.id}1.png` : `./assets/img/${this.id}2.png`;
+                }
             }
 
             if (title.length>0) {

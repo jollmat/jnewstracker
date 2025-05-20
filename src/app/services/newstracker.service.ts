@@ -138,7 +138,8 @@ export class NewstrackerService {
       { id: 'vilaweb', name: 'VilaWeb', url: 'vilaweb.cat/categoria/pais/principat/', active: false, news: [] },
       { id: 'naciodigital', name: 'Nació Digital', url: 'naciodigital.cat/', active: false, news: [] },
       { id: 'visitsitges', name: 'Visit Sitges', url: 'visitsitges.com/ca/noticies/', active: false, news: [] },
-      { id: 'vogue', name: 'Vogue', url: 'vogue.es/', active: false, news: [] }
+      { id: 'vogue', name: 'Vogue', url: 'vogue.es/', active: false, news: [] },
+      { id: 'glamour', name: 'Glamour', url: 'glamour.es', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus', 'lastminute'];
@@ -204,7 +205,7 @@ export class NewstrackerService {
       },
       { 
         name: 'Fashion', 
-        sources: ['vogue'] 
+        sources: ['vogue', 'glamour'] 
       }
     ];
     return defaultSourceGroups;
