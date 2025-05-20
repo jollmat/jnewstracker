@@ -49,6 +49,12 @@ export class NewsVogueEntity implements NewsSourceInterface {
                     title = titleNode.children[0] as string;
                 }
             }
+            if (linkNodes.length>0) {
+                const linkNode: Node = linkNodes[0];
+                if (linkNode.children && linkNode.children.length>0) {
+                    url = this.newstrackerService.getNodeAttr(linkNode, 'href');
+                }
+            }
             if (imageNodes.length>0) {
                 const imageNode: Node = imageNodes[0];
                 imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'src');
