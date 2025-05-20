@@ -134,10 +134,11 @@ export class NewstrackerService {
       { id: 'onze', name: 'Onze', url: 'onzemondial.com/', active: false, news: [] },
       { id: 'espntransfers', name: 'ESPN Transfers', url: 'espn.com/soccer/transfers', active: false, news: [] },
       { id: 'angularlove', name: 'Angular.love', url: 'angular.love/news', active: false, news: [] },
-      { id: 'trescat', name: '3Cat', url: '3cat.cat/324/ultimes-noticies/', active: false, news: [] }
+      { id: 'trescat', name: '3Cat', url: '3cat.cat/324/ultimes-noticies/', active: false, news: [] },
+      { id: 'vilaweb', name: 'VilaWeb', url: 'vilaweb.cat/categoria/pais/principat/', active: false, news: [] }
     ];
 
-    const removableSources: string[] = ['canalblau', 'infosalus'];
+    const removableSources: string[] = ['canalblau', 'infosalus', 'lastminute'];
     const storedSourcesStr: string | null = localStorage.getItem(this.APP_STORED_NEWS_SOURCES);
 
     if(storedSourcesStr && storedSourcesStr!=null) {
@@ -176,7 +177,7 @@ export class NewstrackerService {
       },
       { 
         name: 'Local News', 
-        sources: ['eixdiari', 'ecodesitges', 'laciutat', 'trescat', 'acn'] 
+        sources: ['eixdiari', 'ecodesitges', 'laciutat', 'trescat', 'acn', 'vilaweb'] 
       },
       { 
         name: 'Generic News', 
