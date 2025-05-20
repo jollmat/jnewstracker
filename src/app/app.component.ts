@@ -48,6 +48,8 @@ import { NewsEspnTransfersEntity } from './model/entities/news-espntransfers.ent
 import { NewsAngularLoveEntity } from './model/entities/news-angularlove.entity';
 import { NewsTresCatEntity } from './model/entities/news-trescat.entity';
 import { NewsVilawebEntity } from './model/entities/news-vilaweb.entity';
+import { NewsNacioDigitalEntity } from './model/entities/news-naciodigital.entity';
+import { NewsVisitSitgesEntity } from './model/entities/news-visitsitges.entity';
 
 @Component({
   selector: 'app-root',
@@ -405,6 +407,18 @@ export class AppComponent implements OnInit {
           sourceVilawebEntity.loadNews(rootNode);
           this.newsAll = sourceVilawebEntity.news.concat(this.newsAll);
           source.news = sourceVilawebEntity.news;
+          break;
+        case 'naciodigital': 
+          const sourceNacioDigitalEntity: NewsNacioDigitalEntity = new NewsNacioDigitalEntity(source, this.newstrackerService);
+          sourceNacioDigitalEntity.loadNews(rootNode);
+          this.newsAll = sourceNacioDigitalEntity.news.concat(this.newsAll);
+          source.news = sourceNacioDigitalEntity.news;
+          break;
+        case 'visitsitges': 
+          const sourceVisitSitgesEntity: NewsVisitSitgesEntity = new NewsVisitSitgesEntity(source, this.newstrackerService);
+          sourceVisitSitgesEntity.loadNews(rootNode);
+          this.newsAll = sourceVisitSitgesEntity.news.concat(this.newsAll);
+          source.news = sourceVisitSitgesEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {

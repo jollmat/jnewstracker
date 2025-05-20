@@ -135,7 +135,9 @@ export class NewstrackerService {
       { id: 'espntransfers', name: 'ESPN Transfers', url: 'espn.com/soccer/transfers', active: false, news: [] },
       { id: 'angularlove', name: 'Angular.love', url: 'angular.love/news', active: false, news: [] },
       { id: 'trescat', name: '3Cat', url: '3cat.cat/324/ultimes-noticies/', active: false, news: [] },
-      { id: 'vilaweb', name: 'VilaWeb', url: 'vilaweb.cat/categoria/pais/principat/', active: false, news: [] }
+      { id: 'vilaweb', name: 'VilaWeb', url: 'vilaweb.cat/categoria/pais/principat/', active: false, news: [] },
+      { id: 'naciodigital', name: 'Nació Digital', url: 'naciodigital.cat/', active: false, news: [] },
+      { id: 'visitsitges', name: 'Visit Sitges', url: 'visitsitges.com/ca/noticies/', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus', 'lastminute'];
@@ -177,7 +179,7 @@ export class NewstrackerService {
       },
       { 
         name: 'Local News', 
-        sources: ['eixdiari', 'ecodesitges', 'laciutat', 'trescat', 'acn', 'vilaweb'] 
+        sources: ['eixdiari', 'ecodesitges', 'laciutat', 'trescat', 'acn', 'vilaweb', 'naciodigital', 'visitsitges'] 
       },
       { 
         name: 'Generic News', 
