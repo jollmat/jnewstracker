@@ -46,4 +46,18 @@ export class UtilsService {
     return value;
   }
 
+  // From Latin-1 to UTF-8
+  static fromLatin1ToUtf8(str: string): string {
+    // Step 1: convert broken UTF-16 string to bytes as if it were Latin-1
+    const bytes = new Uint8Array([...str].map(char => char.charCodeAt(0)));
+    
+    // Step 2: decode those bytes correctly as UTF-8
+    return new TextDecoder('utf-8').decode(bytes);
+  }
+
+  static fromIso885915ToUtf8(str: string): string {
+    const bytes = new Uint8Array([...str].map(c => c.charCodeAt(0)));
+    return new TextDecoder('iso-8859-15').decode(bytes);
+  }
+
 }

@@ -4,7 +4,7 @@ import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
 
-export class NewsVogueEntity implements NewsSourceInterface {
+export class NewsTelvaEntity implements NewsSourceInterface {
     id: string;
     name: string;
     url: string;
@@ -27,7 +27,7 @@ export class NewsVogueEntity implements NewsSourceInterface {
 
     loadNews(node: Node): void {
         this.news = [];
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'summary-item');
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
 
         newsNodes.forEach((_newsNode, idx) => {
 
@@ -41,12 +41,15 @@ export class NewsVogueEntity implements NewsSourceInterface {
             
             // Title
             let linkNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'a');
-            let titleNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'h3');
+            let titleNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'h2');
             let imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
+
             if (titleNodes.length>0) {
                 const titleNode: Node = titleNodes[0];
                 if (titleNode.children && titleNode.children.length>0) {
                     title = titleNode.children[0] as string;
+                    // title = UtilsService.fromIso885915ToUtf8(titleNode.children[0] as string);
+                    // title = UtilsService.fromLatin1ToUtf8(title);
                 }
             }
             if (linkNodes.length>0) {

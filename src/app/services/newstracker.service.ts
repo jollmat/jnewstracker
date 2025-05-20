@@ -139,7 +139,8 @@ export class NewstrackerService {
       { id: 'naciodigital', name: 'Nació Digital', url: 'naciodigital.cat/', active: false, news: [] },
       { id: 'visitsitges', name: 'Visit Sitges', url: 'visitsitges.com/ca/noticies/', active: false, news: [] },
       { id: 'vogue', name: 'Vogue', url: 'vogue.es/', active: false, news: [] },
-      { id: 'glamour', name: 'Glamour', url: 'glamour.es', active: false, news: [] }
+      { id: 'glamour', name: 'Glamour', url: 'glamour.es', active: false, news: [] },
+      { id: 'telva', name: 'Telva', url: 'telva.com', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus', 'lastminute'];
@@ -205,7 +206,7 @@ export class NewstrackerService {
       },
       { 
         name: 'Fashion', 
-        sources: ['vogue', 'glamour'] 
+        sources: ['vogue', 'glamour', 'telva'] 
       }
     ];
     return defaultSourceGroups;
