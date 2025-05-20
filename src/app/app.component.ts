@@ -53,6 +53,7 @@ import { NewsVisitSitgesEntity } from './model/entities/news-visitsitges.entity'
 import { NewsVogueEntity } from './model/entities/news-vogue.entity';
 import { NewsTelvaEntity } from './model/entities/news-telva.entity';
 import { NewsElleEntity } from './model/entities/news-elle.entity';
+import { NewsEspinofEntity } from './model/entities/news-espinof.entity';
 
 @Component({
   selector: 'app-root',
@@ -437,10 +438,17 @@ export class AppComponent implements OnInit {
           source.news = sourceTelvaEntity.news;
           break;
         case 'elle': 
+        case 'fotogramas': 
           const sourceElleEntity: NewsElleEntity = new NewsElleEntity(source, this.newstrackerService);
           sourceElleEntity.loadNews(rootNode);
           this.newsAll = sourceElleEntity.news.concat(this.newsAll);
           source.news = sourceElleEntity.news;
+          break;
+        case 'espinof': 
+          const sourceEspinofEntity: NewsEspinofEntity = new NewsEspinofEntity(source, this.newstrackerService);
+          sourceEspinofEntity.loadNews(rootNode);
+          this.newsAll = sourceEspinofEntity.news.concat(this.newsAll);
+          source.news = sourceEspinofEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {
