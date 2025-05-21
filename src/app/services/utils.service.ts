@@ -7,6 +7,11 @@ export class UtilsService {
 
   constructor() { }
 
+  // Returns a random number from 0 to max
+  static getRandomInt(max = 100): number {
+    return Math.floor(Math.random() * max);
+  }
+
   // Merges only object2 values matching attributes in the object1
   static mergeMatching<T extends Record<string, any>>(obj1: T, obj2: Partial<T>): T {
     const result: T = { ...obj1 };

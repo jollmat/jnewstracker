@@ -1,3 +1,4 @@
+import { UtilsService } from "../../services/utils.service";
 import { NewstrackerService } from "../../services/newstracker.service";
 import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
@@ -28,7 +29,7 @@ export class NewsAbcEntity implements NewsSourceInterface {
         this.news = [];
         const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
         
-        newsNodes.forEach((_newsNode) => {
+        newsNodes.forEach((_newsNode, idx) => {
             let title = '';
             let newsDate: Date | undefined = undefined;
             let content = '';
@@ -59,6 +60,8 @@ export class NewsAbcEntity implements NewsSourceInterface {
             if (imageLinks.length>0) {
                 const imageLink: Node = imageLinks[0];
                 imageUrl = this.newstrackerService.getNodeAttr(imageLink, 'src');
+            } else {
+                imageUrl = `./assets/img/newspaper${UtilsService.getRandomInt(2)}.png`;
             }
             
             this.news.push({

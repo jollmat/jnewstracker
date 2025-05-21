@@ -2,6 +2,7 @@ import { NewstrackerService } from "../../services/newstracker.service";
 import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
+import { UtilsService } from "../../services/utils.service";
 
 export class NewsVeinteMinutosEntity implements NewsSourceInterface {
     id: string;
@@ -37,6 +38,7 @@ export class NewsVeinteMinutosEntity implements NewsSourceInterface {
             let tags: string[] = [];
             let imageUrl = '';
             let url = '';
+            
             // Title
             let titleLinks: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'header');
             if (titleLinks.length>0) {
@@ -62,7 +64,11 @@ export class NewsVeinteMinutosEntity implements NewsSourceInterface {
                 const imageNode: Node = imageNodes[0];
                 if (this.newstrackerService.nodeHasAttribute(imageNode, 'src')) {
                     imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'src');
+                } else {
+                    imageUrl = `./assets/img/newspaper${UtilsService.getRandomInt(2)}.png`;
                 }
+            } else {
+                imageUrl = `./assets/img/newspaper${UtilsService.getRandomInt(2)}.png`;
             }
 
             if (title.length>0) {

@@ -54,6 +54,7 @@ import { NewsVogueEntity } from './model/entities/news-vogue.entity';
 import { NewsTelvaEntity } from './model/entities/news-telva.entity';
 import { NewsElleEntity } from './model/entities/news-elle.entity';
 import { NewsEspinofEntity } from './model/entities/news-espinof.entity';
+import { NewsTresDeJuegosEntity } from './model/entities/news-tresdejuegos.entity';
 
 @Component({
   selector: 'app-root',
@@ -449,6 +450,12 @@ export class AppComponent implements OnInit {
           sourceEspinofEntity.loadNews(rootNode);
           this.newsAll = sourceEspinofEntity.news.concat(this.newsAll);
           source.news = sourceEspinofEntity.news;
+          break;
+        case '3djuegos': 
+          const sourceTresDeJuegosEntity: NewsTresDeJuegosEntity = new NewsTresDeJuegosEntity(source, this.newstrackerService);
+          sourceTresDeJuegosEntity.loadNews(rootNode);
+          this.newsAll = sourceTresDeJuegosEntity.news.concat(this.newsAll);
+          source.news = sourceTresDeJuegosEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {

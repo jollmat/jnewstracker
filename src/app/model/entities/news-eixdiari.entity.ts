@@ -12,7 +12,7 @@ export class NewsEixDiariEntity implements NewsSourceInterface {
     loaded?: boolean | undefined;
     news: NewsItemInterface[];
 
-    maxItems = 9;
+    maxItems = 15;
 
     constructor({id, name, url, active, error, loaded, news}: Partial<NewsSourceInterface>, private newstrackerService: NewstrackerService) {
         this.id = id || '';
