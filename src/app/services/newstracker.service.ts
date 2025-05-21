@@ -144,7 +144,8 @@ export class NewstrackerService {
       { id: 'elle', name: 'Elle', url: 'elle.com/es/', active: false, news: [] },
       { id: 'fotogramas', name: 'Fotogramas', url: 'fotogramas.es', active: false, news: [] },
       { id: 'espinof', name: 'Espinof', url: 'espinof.com/categoria/estrenos', active: false, news: [] },
-      { id: '3djuegos', name: '3D Juegos', url: '3djuegos.com/ps5', active: false, news: [] }
+      { id: '3djuegos', name: '3D Juegos', url: '3djuegos.com/ps5', active: false, news: [] },
+      { id: 'vandal', name: 'Vandal', url: 'vandal.elespanol.com/', active: false, news: [] }
     ];
 
     const removableSources: string[] = ['canalblau', 'infosalus', 'lastminute'];
@@ -198,7 +199,7 @@ export class NewstrackerService {
       },
       { 
         name: 'Tech & Gaming', 
-        sources: ['hobbyconsolas', 'elsotanoperdido', 'computerhoy', 'xataka', 'revistagadget', '3djuegos'] 
+        sources: ['hobbyconsolas', 'elsotanoperdido', 'computerhoy', 'xataka', 'revistagadget', '3djuegos', 'vandal'] 
       },
       { 
         name: 'Science', 

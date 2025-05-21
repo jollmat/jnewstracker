@@ -55,11 +55,13 @@ import { NewsTelvaEntity } from './model/entities/news-telva.entity';
 import { NewsElleEntity } from './model/entities/news-elle.entity';
 import { NewsEspinofEntity } from './model/entities/news-espinof.entity';
 import { NewsTresDeJuegosEntity } from './model/entities/news-tresdejuegos.entity';
+import { NewsVandalEntity } from './model/entities/news-vandal.entity';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, FormsModule, HighlightPipe],
+  imports: [RouterOutlet, CommonModule, FormsModule, HighlightPipe, NgxSkeletonLoaderModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -83,6 +85,8 @@ export class AppComponent implements OnInit {
   searchText = '';
 
   showSources = false; // Used for mobile only
+
+  loaderOpacity = .2;
 
   constructor(
     private readonly newstrackerService: NewstrackerService,
@@ -120,6 +124,11 @@ export class AppComponent implements OnInit {
   }
   get inactiveSources(): NewsSourceInterface[] {
     return this.sources.filter((_source) => !_source.active);
+  }
+  get areLoadingSources(): boolean {
+    return this.sources.filter((_source) => {
+      return _source.active && !_source.loaded;
+    }).length>0;
   }
 
   isTabletScreen(): boolean {
@@ -456,6 +465,12 @@ export class AppComponent implements OnInit {
           sourceTresDeJuegosEntity.loadNews(rootNode);
           this.newsAll = sourceTresDeJuegosEntity.news.concat(this.newsAll);
           source.news = sourceTresDeJuegosEntity.news;
+          break;
+        case 'vandal': 
+          const sourceVandalEntity: NewsVandalEntity = new NewsVandalEntity(source, this.newstrackerService);
+          sourceVandalEntity.loadNews(rootNode);
+          this.newsAll = sourceVandalEntity.news.concat(this.newsAll);
+          source.news = sourceVandalEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {

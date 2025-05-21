@@ -40,6 +40,7 @@
     <!-- NEWS -->
     <div class="w-70 d-flex flex-column flex-grow-1">
       <ng-container *ngIf="numActiveSources>0" [ngTemplateOutlet]="sourceTagsTemplate"></ng-container>
+
       <div class="d-flex justify-content-around flex-column news-container" [ngClass]="{'flex-column': displayMode==='LIST', 'pb-3': displayMode==='LIST', 'p-3': displayMode==='GRID', 'flex-wrap': displayMode==='GRID', 'gap-3': displayMode==='GRID'}">
         <ng-container *ngIf="news && news.length>0">
           <ng-container *ngFor="let newsItem of news">
@@ -192,40 +193,55 @@
 <ng-template let-newsItem="newsItem" #newsItemTemplate>
   <ng-container *ngIf="displayMode==='GRID'">
     <div class="card news-grid-item">
-      <img *ngIf="newsItem.imageUrl && newsItem.imageUrl.length>0" class="card-img-top" src="{{newsItem.imageUrl}}" alt="">
-      <img *ngIf="!(newsItem.imageUrl && newsItem.imageUrl.length>0)" class="card-img-top" src="{{getDefaultImage()}}" alt="">
-      <div class="card-body">
-        <ng-container *ngIf="newsItem.url && newsItem.url.length>0">
-          <h5 class="card-title"><a href="{{newsItem.url}}" target="_blank" [innerHTML]="newsItem.title | highlight:searchText"></a></h5>
-        </ng-container>
-        <ng-container *ngIf="!(newsItem.url && newsItem.url.length>0)">
-          <h5 class="card-title" [innerHTML]="newsItem.title | highlight:searchText"></h5>
-        </ng-container>
-        <p class="card-text" [innerHTML]="newsItem.content | highlight:searchText"></p>
-        <div class="d-flex flex-column w-100">
-          <ng-container *ngIf="newsItem.date">
-            <div class="w-100 mb-3">
-              <small *ngIf="timeInformed(newsItem.date)">{{newsItem.date | date:'dd.MM.yyyy - HH:mm'}}</small>
-              <small *ngIf="!timeInformed(newsItem.date)">{{newsItem.date | date:'dd.MM.yyyy'}}</small>
-            </div>
+      <ngx-skeleton-loader
+        *ngIf="areLoadingSources"
+        appearance="line"
+        [theme]="{ width: '100%', height: '166px', opacity: loaderOpacity }"
+      ></ngx-skeleton-loader>
+
+      <ng-container *ngIf="!areLoadingSources">
+        <img *ngIf="newsItem.imageUrl && newsItem.imageUrl.length>0" class="card-img-top" src="{{newsItem.imageUrl}}" alt="">
+        <img *ngIf="!(newsItem.imageUrl && newsItem.imageUrl.length>0)" class="card-img-top" src="{{getDefaultImage()}}" alt="">
+        <div class="card-body">
+          <ng-container *ngIf="newsItem.url && newsItem.url.length>0">
+            <h5 class="card-title"><a href="{{newsItem.url}}" target="_blank" [innerHTML]="newsItem.title | highlight:searchText"></a></h5>
           </ng-container>
-          <ng-container *ngIf="newsItem.dateStr">
-            <div class="w-100 mb-3">
-              <small>{{newsItem.dateStr}}</small>
-            </div>
+          <ng-container *ngIf="!(newsItem.url && newsItem.url.length>0)">
+            <h5 class="card-title" [innerHTML]="newsItem.title | highlight:searchText"></h5>
           </ng-container>
-          <ng-container *ngIf="!newsItem.date && !newsItem.dateStr"><div class="mb-3">&nbsp;</div></ng-container>
-          <div class="w-100">
-            <a class="source" href="https://{{newsItem.source.url}}" target="_blank">{{newsItem.source.name}}</a>
+          <p class="card-text" [innerHTML]="newsItem.content | highlight:searchText"></p>
+          <div class="d-flex flex-column w-100">
+            <ng-container *ngIf="newsItem.date">
+              <div class="w-100 mb-3">
+                <small *ngIf="timeInformed(newsItem.date)">{{newsItem.date | date:'dd.MM.yyyy - HH:mm'}}</small>
+                <small *ngIf="!timeInformed(newsItem.date)">{{newsItem.date | date:'dd.MM.yyyy'}}</small>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="newsItem.dateStr">
+              <div class="w-100 mb-3">
+                <small>{{newsItem.dateStr}}</small>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!newsItem.date && !newsItem.dateStr"><div class="mb-3">&nbsp;</div></ng-container>
+            <div class="w-100">
+              <a class="source" href="https://{{newsItem.source.url}}" target="_blank">{{newsItem.source.name}}</a>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
   </ng-container>
 
   <ng-container *ngIf="displayMode==='LIST'">
+
+    <ngx-skeleton-loader
+        *ngIf="areLoadingSources"
+        appearance="line"
+        [theme]="{ width: '100%', height: '120px', opacity: loaderOpacity }"
+    ></ngx-skeleton-loader>
     
-    <div class="w-100 d-flex p-0 news-list-item" 
+    <div class="w-100 d-flex p-0 news-list-item"
+      *ngIf="!areLoadingSources" 
       [ngClass]="{'my-1': !isMobile, 'mobile': isMobile}"
       [style]="(isMobile && newsItem.imageUrl && newsItem.imageUrl.length>0)?getNewsBgImageStyle(newsItem):''"
       >
