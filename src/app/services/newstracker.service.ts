@@ -112,7 +112,7 @@ export class NewstrackerService {
       { id: 'elsotanoperdido', name: 'El Sótano Perdido', url: 'elsotanoperdido.com/noticias/Tracks/ps5', active: false, news: [] },
       { id: 'computerhoy', name: 'Computer Hoy', url: 'computerhoy.20minutos.es/', active: false, news: [] },
       { id: 'abc', name: 'ABC', url: 'abc.es', active: false, news: [] },
-      { id: 'lavanguardia', name: 'La Vanguardia', url: 'lavanguardia.com', active: false, news: [] },
+      { id: 'lavanguardia', name: 'La Vanguardia', url: 'lavanguardia.com/alminuto', active: false, news: [] },
       { id: 'guerinsportivo', name: 'Guerin Sportivo', url: 'guerinsportivo.it', active: false, news: [] },
       { id: 'thetimes', name: 'The Times', url: 'thetimes.com', active: false, news: [] },
       { id: 'veinteminutos', name: '20 minutos', url: '20minutos.es', active: false, news: [] },

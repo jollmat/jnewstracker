@@ -28,7 +28,7 @@ export class NewsLaVanguardiaEntity implements NewsSourceInterface {
         this.news = [];
         const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
         
-        newsNodes.forEach((_newsNode) => {
+        newsNodes.forEach((_newsNode, idx) => {
             let title = '';
             let newsDate: Date | undefined = undefined;
             let content = '';
@@ -50,34 +50,36 @@ export class NewsLaVanguardiaEntity implements NewsSourceInterface {
                             title = (titleNode.children)? titleNode.children[0] as string : '';
                             title += ` ${titleLink.children[1]}`;
                         }
-                        url = this.newstrackerService.getNodeAttr(titleLink, 'href');
+                        url = this.newstrackerService.getNodeAttr(titleLink, 'href') || '';
+                        if (url && !url.startsWith('https://')) {
+                            url = `https://${this.url.replace('/alminuto', '')}${url}`;
+                        }
                     }
                 }
             }
-            // Content
-            const contentNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'epigraph');
-            if (contentNodes.length>0) {
-                const paragraphNodes: Node[] = this.newstrackerService.findNodesWithTag(contentNodes[0], 'p');
-                if (paragraphNodes.length>0 && paragraphNodes[0].children) {
-                    content = paragraphNodes[0].children[0] as string;
+            
+            // Image
+            let imageLinks: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'image-container');
+            if (imageLinks.length>0) {
+                let imageLink: Node = imageLinks[0];
+                imageLinks = this.newstrackerService.findNodesWithTag(imageLink, 'img');
+                if (imageLinks.length>0) {
+                    imageLink = imageLinks[0];
+                    imageUrl = this.newstrackerService.getNodeAttr(imageLink, 'data-src');
                 }
             }
-            // Image
-            let imageLinks: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
-            if (imageLinks.length>0) {
-                const imageLink: Node = imageLinks[0];
-                imageUrl = (!this.newstrackerService.getNodeAttr(imageLink, 'src').startsWith('data:image'))? this.newstrackerService.getNodeAttr(imageLink, 'src'):'';
+
+            if (title.length>0 && url.length>0) {
+                this.news.push({
+                    title,
+                    content,
+                    date: newsDate,
+                    source: {id: this.id, name: this.name, url: this.url, active: this.active, error: this.error, loaded: this.loaded} as NewsSourceInterface,
+                    imageUrl,
+                    url,
+                    tags
+                });
             }
-            
-            this.news.push({
-                title,
-                content,
-                date: newsDate,
-                source: {id: this.id, name: this.name, url: this.url, active: this.active, error: this.error, loaded: this.loaded} as NewsSourceInterface,
-                imageUrl,
-                url,
-                tags
-            });
             
         });
 
