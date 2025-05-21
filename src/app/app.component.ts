@@ -6,6 +6,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { NewstrackerService } from './services/newstracker.service';
 import { NewsSourceInterface } from './model/interfaces/news-source.interface';
 import { Node } from './model/interfaces/node.interface';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { HighlightPipe } from './pipes/highlight.pipe';
@@ -56,7 +57,10 @@ import { NewsElleEntity } from './model/entities/news-elle.entity';
 import { NewsEspinofEntity } from './model/entities/news-espinof.entity';
 import { NewsTresDeJuegosEntity } from './model/entities/news-tresdejuegos.entity';
 import { NewsVandalEntity } from './model/entities/news-vandal.entity';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NewsCincoDiasEntity } from './model/entities/news-cincodias.entity';
+import { NewsExpansionEntity } from './model/entities/news-expansion.entity';
+import { NewsElEconomistaEntity } from './model/entities/news-eleconomista.entity';
+
 
 @Component({
   selector: 'app-root',
@@ -471,6 +475,24 @@ export class AppComponent implements OnInit {
           sourceVandalEntity.loadNews(rootNode);
           this.newsAll = sourceVandalEntity.news.concat(this.newsAll);
           source.news = sourceVandalEntity.news;
+          break;
+        case 'cincodias': 
+          const sourceCincoDiasEntity: NewsCincoDiasEntity = new NewsCincoDiasEntity(source, this.newstrackerService);
+          sourceCincoDiasEntity.loadNews(rootNode);
+          this.newsAll = sourceCincoDiasEntity.news.concat(this.newsAll);
+          source.news = sourceCincoDiasEntity.news;
+          break;
+        case 'expansion': 
+          const sourceExpansionEntity: NewsExpansionEntity = new NewsExpansionEntity(source, this.newstrackerService);
+          sourceExpansionEntity.loadNews(rootNode);
+          this.newsAll = sourceExpansionEntity.news.concat(this.newsAll);
+          source.news = sourceExpansionEntity.news;
+          break;
+        case 'eleconomista': 
+          const sourceElEconomistaEntity: NewsElEconomistaEntity = new NewsElEconomistaEntity(source, this.newstrackerService);
+          sourceElEconomistaEntity.loadNews(rootNode);
+          this.newsAll = sourceElEconomistaEntity.news.concat(this.newsAll);
+          source.news = sourceElEconomistaEntity.news;
           break;
       }
       if (this.sources.filter((_source) => _source.active && !_source.loaded).length===0) {

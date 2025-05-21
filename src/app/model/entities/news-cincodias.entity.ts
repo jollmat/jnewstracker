@@ -1,9 +1,10 @@
+import { UtilsService } from "../../services/utils.service";
 import { NewstrackerService } from "../../services/newstracker.service";
 import { NewsItemInterface } from "../interfaces/news-item.interface";
 import { NewsSourceInterface } from "../interfaces/news-source.interface";
 import { Node } from '../interfaces/node.interface';
 
-export class NewsVandalEntity implements NewsSourceInterface {
+export class NewsCincoDiasEntity implements NewsSourceInterface {
     id: string;
     name: string;
     url: string;
@@ -12,7 +13,7 @@ export class NewsVandalEntity implements NewsSourceInterface {
     loaded?: boolean | undefined;
     news: NewsItemInterface[];
 
-    maxItems = 20;
+    maxItems = 15;
 
     constructor({id, name, url, active, error, loaded, news}: Partial<NewsSourceInterface>, private newstrackerService: NewstrackerService) {
         this.id = id || '';
@@ -26,7 +27,7 @@ export class NewsVandalEntity implements NewsSourceInterface {
 
     loadNews(node: Node): void {
         this.news = [];
-        const newsNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(node, 'item_portada');
+        const newsNodes: Node[] = this.newstrackerService.findNodesWithTag(node, 'article');
 
         newsNodes.forEach((_newsNode) => {
             let title = '';
@@ -37,9 +38,24 @@ export class NewsVandalEntity implements NewsSourceInterface {
             let imageUrl = '';
 
             // Title
-            let titleNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'h2');
+            let titleNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'header');
             if (titleNodes.length>0) {
-                const titleNode: Node = titleNodes[0];
+                let titleNode: Node = titleNodes[0];
+                if (titleNode.children && titleNode.children.length>0) {
+                    titleNodes = this.newstrackerService.findNodesWithTag(titleNode, 'a');
+                    if (titleNodes.length>0) {
+                        titleNode = titleNodes[0];
+                        if (titleNode.children && titleNode.children.length>0) {
+                            titleNode.children.forEach((_child) => {
+                                if (typeof _child === 'string') {
+                                    title = _child as string;
+                                }
+                            });
+                        }
+                    }
+                }
+
+
                 if (titleNode.children && titleNode.children.length>0 && typeof titleNode.children[0] === 'string') {
                     title = titleNode.children[0] as string;
                 }
@@ -52,19 +68,12 @@ export class NewsVandalEntity implements NewsSourceInterface {
                 url = this.newstrackerService.getNodeAttr(linkNode, 'href');
             }
 
-            // Content
-            let contentNodes: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'desc_portada');
-            if (contentNodes.length>0) {
-                let contentNode: Node = contentNodes[0];
-                if (contentNode.children && contentNode.children.length>0 && typeof contentNode.children[0]==='string') {
-                    content = contentNode.children[0] as string;
-                }
-            }
-
             // Image
             const imageNodes: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
             if (imageNodes.length>0) {
-                imageUrl = this.newstrackerService.getNodeAttr(imageNodes[0], 'data-src');
+                imageUrl = this.newstrackerService.getNodeAttr(imageNodes[0], 'src');
+            } else {
+                imageUrl = `./assets/img/financial${UtilsService.getRandomInt(3)}.png`;
             }
 
             if (title && title.length>0) {

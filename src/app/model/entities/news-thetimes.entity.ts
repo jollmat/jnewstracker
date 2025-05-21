@@ -63,7 +63,6 @@ export class NewsTheTimesEntity implements NewsSourceInterface {
             } else {
                 imageNodes = this.newstrackerService.findNodesWithTag(_newsNode, 'img');
                 if (imageNodes.length>0) {
-                    console.log(imageNodes);
                     const imageNode: Node = imageNodes[0];
                     imageUrl = this.newstrackerService.getNodeAttr(imageNode, 'src');
                 }

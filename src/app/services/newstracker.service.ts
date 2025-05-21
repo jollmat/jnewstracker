@@ -145,10 +145,13 @@ export class NewstrackerService {
       { id: 'fotogramas', name: 'Fotogramas', url: 'fotogramas.es', active: false, news: [] },
       { id: 'espinof', name: 'Espinof', url: 'espinof.com/categoria/estrenos', active: false, news: [] },
       { id: '3djuegos', name: '3D Juegos', url: '3djuegos.com/ps5', active: false, news: [] },
-      { id: 'vandal', name: 'Vandal', url: 'vandal.elespanol.com/', active: false, news: [] }
+      { id: 'vandal', name: 'Vandal', url: 'vandal.elespanol.com/', active: false, news: [] },
+      { id: 'cincodias', name: 'CincoDías', url: 'cincodias.elpais.com', active: false, news: [] },
+      { id: 'expansion', name: 'Expansión', url: 'expansion.com/', active: false, news: [] },
+      //{ id: 'eleconomista', name: 'El Economista', url: 'eleconomista.es', active: false, news: [] }
     ];
 
-    const removableSources: string[] = ['canalblau', 'infosalus', 'lastminute'];
+    const removableSources: string[] = ['canalblau', 'infosalus', 'lastminute', 'eleconomista'];
     const storedSourcesStr: string | null = localStorage.getItem(this.APP_STORED_NEWS_SOURCES);
 
     if(storedSourcesStr && storedSourcesStr!=null) {
@@ -216,6 +219,10 @@ export class NewstrackerService {
       { 
         name: 'Cinema', 
         sources: ['fotogramas', 'espinof'] 
+      },
+      { 
+        name: 'Economía', 
+        sources: ['cincodias', 'expansion'] 
       }
     ];
     return defaultSourceGroups;

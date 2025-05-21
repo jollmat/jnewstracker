@@ -30,8 +30,6 @@ export class NewsNacioDigitalEntity implements NewsSourceInterface {
 
         newsNodes.forEach((_newsNode, idx) => {
 
-            //console.log(_newsNode);
-
             let title = '';
             let newsDate: Date | undefined = undefined;
             let dateStr: string | undefined = undefined;
