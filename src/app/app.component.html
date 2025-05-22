@@ -91,6 +91,12 @@
             <span>Sources</span>
             <i class="fas fa-close close-sources cursor-pointer" (click)="showSources=false;"></i>
           </div>
+          <!-- Source groups -->
+          <div class="group-picker d-flex flex-wrap gap-2 my-4 px-3">
+            <ng-container *ngFor="let sourceGroupItem of sourceGroups">
+              <button class="btn btn-sm badge d-flex align-items-center" [ngClass]="{'selected': isSourceGroupSelected(sourceGroupItem)}" (click)="toggleSourceGroup(sourceGroupItem)">{{sourceGroupItem.name}} <span class="badge-count ms-2">{{sourceGroupItem.sources.length}}</span></button>
+            </ng-container>
+          </div>
           <div class="source-check-container mobile px-2">
             <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
           </div>
