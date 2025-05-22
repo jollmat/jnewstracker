@@ -98,7 +98,8 @@
             </ng-container>
           </div>
           <div class="source-check-container mobile px-2">
-            <ng-container *ngFor="let sourceItem of sources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
+            <ng-container *ngFor="let sourceItem of activeSources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
+            <ng-container *ngFor="let sourceItem of inactiveSources" [ngTemplateOutlet]="sourceTemplate" [ngTemplateOutletContext]="{sourceItem}"></ng-container>
           </div>
         </div>
       </ng-container>
