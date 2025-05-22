@@ -155,7 +155,8 @@ h3 {
         font-family: cursive;
         letter-spacing: 5px;
         &.mobile {
-            font-size: 34px;
+            font-size: 38px;
+            letter-spacing: 8px;
         }
     }
 }
@@ -276,4 +277,9 @@ span {
             }
         }
     }
+}
+
+.mobile-source-selection-block {
+    font-size: 18px;
+    height: 500px;
 }

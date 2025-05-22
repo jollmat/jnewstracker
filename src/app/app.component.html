@@ -110,8 +110,9 @@
         </ng-container>
       </ng-container>
       <ng-container *ngIf="numActiveSources===0 && !showSources">
-        <div class="text-center py-5 mt-5 w-100">Please, select a source. 
-          <br /><button class="btn btn-sm btn-secondary mt-3" (click)="showSources=true;">Source selection</button>
+        <div class="mobile-source-selection-block text-center py-5 mt-5 w-100 d-flex flex-column justify-content-center align-items-center">
+          <div class="mb-2">Please, </div>
+          <button class="btn btn-secondary mt-3 w-50" (click)="showSources=true;">Select source/s</button>
         </div>
       </ng-container>
       <ng-container *ngIf="numActiveSources>0 && news && news.length===0">
