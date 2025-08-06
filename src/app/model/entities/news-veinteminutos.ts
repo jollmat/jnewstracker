@@ -40,7 +40,7 @@ export class NewsVeinteMinutosEntity implements NewsSourceInterface {
             let url = '';
             
             // Title
-            let titleLinks: Node[] = this.newstrackerService.findNodesWithTag(_newsNode, 'header');
+            let titleLinks: Node[] = this.newstrackerService.findNodesWithClassAttr(_newsNode, 'c-article__title');
             if (titleLinks.length>0) {
                 titleLinks = this.newstrackerService.findNodesWithTag(titleLinks[0], 'a');
                 if (titleLinks.length>0) {
