@@ -53,7 +53,7 @@ export class NewsVeinteMinutosEntity implements NewsSourceInterface {
                                 title += ((title.length>0?' ':'') + (_titlePart.children[0] as string));
                             }
                         });
-                        url = this.newstrackerService.getNodeAttr(titleLink, 'href');
+                        url = 'https://' + this.url + '/' + this.newstrackerService.getNodeAttr(titleLink, 'href');
                     }
                 }
             }
